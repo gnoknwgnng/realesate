@@ -14,7 +14,8 @@ dist-ssr
 
 # Local media uploads & cache
 /uploads
-data/
+/data/
+!server/data/store.ts
 
 # Logs
 npm-debug.log*
