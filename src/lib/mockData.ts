@@ -1,0 +1,143 @@
+import { Property } from '../types';
+
+export const INITIAL_PROPERTIES: Property[] = [
+  {
+    id: 'a1111111-1111-1111-1111-111111111111',
+    title: 'Palm Meadows Villa',
+    address: 'Whitefield Main Road, Bengaluru, KA',
+    city: 'Bengaluru',
+    state: 'KA',
+    price: 65000,
+    period: 'month',
+    beds: 3,
+    baths: 3,
+    dimensions: '1,850 sq.ft',
+    image_url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+    is_popular: true,
+    category: 'rent',
+    property_type: 'Luxury Villa',
+    description: 'Beautiful modern 3 BHK villa situated 7 minutes from Manipal Hospital and Vydehi Super Specialty Hospital, Whitefield. Equipped with soundproof doctor study room, blackout bedroom drapery, 100% DG power backup, and quiet gated community.',
+    hospital_distance: '1.8 km to Manipal Hospital Whitefield',
+    owner_email: 'doctor.demo@medproperties.com',
+    status: 'active'
+  },
+  {
+    id: 'a2222222-2222-2222-2222-222222222222',
+    title: 'Jubilee Enclave Villa',
+    address: 'Road No. 36, Jubilee Hills, Hyderabad, TS',
+    city: 'Hyderabad',
+    state: 'TS',
+    price: 85000,
+    period: 'month',
+    beds: 4,
+    baths: 4,
+    dimensions: '2,400 sq.ft',
+    image_url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+    is_popular: true,
+    category: 'rent',
+    property_type: 'Executive Villa',
+    description: 'Executive luxury residence tailored for medical department heads and senior surgeons. Located near Apollo Health City Jubilee Hills. Features private terrace garden, dedicated study, EV charger, and 24/7 security.',
+    hospital_distance: '2.1 km to Apollo Hospitals Jubilee Hills',
+    owner_email: 'doctor.demo@medproperties.com',
+    status: 'active'
+  },
+  {
+    id: 'a3333333-3333-3333-3333-333333333333',
+    title: 'Worli Sea Face Residency',
+    address: 'Khan Abdul Gaffar Khan Marg, Worli, Mumbai, MH',
+    city: 'Mumbai',
+    state: 'MH',
+    price: 145000,
+    period: 'month',
+    beds: 3,
+    baths: 3,
+    dimensions: '1,700 sq.ft',
+    image_url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+    is_popular: true,
+    category: 'rent',
+    property_type: 'Sea View Apartment',
+    description: 'High-end sea-facing residence designed for utmost peace and restorative downtime. Fast Sea Link connectivity to Lilavati Hospital Bandra and Hinduja Healthcare.',
+    hospital_distance: '3.2 km to Lilavati Hospital Bandra'
+  },
+  {
+    id: 'a4444444-4444-4444-4444-444444444444',
+    title: 'Saket Greens Penthouse',
+    address: 'Press Enclave Road, Saket, New Delhi, DL',
+    city: 'New Delhi',
+    state: 'DL',
+    price: 72000,
+    period: 'month',
+    beds: 3,
+    baths: 3,
+    dimensions: '1,950 sq.ft',
+    image_url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+    is_popular: false,
+    category: 'rent',
+    property_type: 'Contemporary Penthouse',
+    description: 'Spacious sunny 3 BHK with private balcony garden, situated directly opposite Max Super Speciality Hospital Saket and 15 minutes to AIIMS New Delhi.',
+    hospital_distance: '1.1 km to Max Super Speciality Hospital Saket'
+  },
+  {
+    id: 'a5555555-5555-5555-5555-555555555555',
+    title: 'Koramangala Doctors Suites',
+    address: '80 Feet Road, 4th Block Koramangala, Bengaluru, KA',
+    city: 'Bengaluru',
+    state: 'KA',
+    price: 38000,
+    period: 'month',
+    beds: 2,
+    baths: 2,
+    dimensions: '1,150 sq.ft',
+    image_url: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+    is_popular: false,
+    category: 'rent',
+    property_type: 'Furnished Apartment',
+    description: 'Turnkey fully-furnished 2 BHK home ideal for resident doctors, fellows, and medical travel staff at St. John’s Medical College Hospital.',
+    hospital_distance: '900 meters to St. John’s Medical College Hospital'
+  },
+  {
+    id: 'a6666666-6666-6666-6666-666666666666',
+    title: 'Anna Nagar Heritage Villa',
+    address: '2nd Avenue, Anna Nagar, Chennai, TN',
+    city: 'Chennai',
+    state: 'TN',
+    price: 48000,
+    period: 'month',
+    beds: 3,
+    baths: 2,
+    dimensions: '1,600 sq.ft',
+    image_url: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=1200&q=80',
+    is_popular: false,
+    category: 'rent',
+    property_type: 'Heritage Villa',
+    description: 'Peaceful residential haven with lush courtyard garden, ideal for restorative rest after demanding hospital on-call shifts. Close to MGM Healthcare and Apollo Hospitals.',
+    hospital_distance: '2.4 km to MGM Healthcare, Chennai'
+  }
+];
+
+export const TESTIMONIALS = [
+  {
+    id: '1',
+    quote: "MedProperties understood exactly what I needed for my family's relocation during my pediatric residency at AIIMS. Their coordination with doctor-friendly home financing and zero brokerage made our move completely stress-free.",
+    author: 'Dr. Rajesh Sharma, MD',
+    role: 'Chief Pediatric Resident',
+    hospital: 'AIIMS New Delhi',
+    avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=300&q=80'
+  },
+  {
+    id: '2',
+    quote: "As a consultant orthopedic surgeon relocating to Bengaluru, finding quiet housing within 10 minutes of Manipal Hospital was crucial for emergency trauma calls. MedProperties found me a verified home within 48 hours.",
+    author: 'Dr. Priya Nair, MS',
+    role: 'Consultant Orthopedic Surgeon',
+    hospital: 'Manipal Hospital Bengaluru',
+    avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80'
+  },
+  {
+    id: '3',
+    quote: "Listing my apartment near Apollo Hospitals on MedProperties connected me with reputable physician tenants who respect the property. Guaranteed on-time rent and zero vacancy downtime have been amazing.",
+    author: 'Ananya Deshmukh',
+    role: 'Property Owner & Landlord',
+    hospital: 'Apollo Hospitals Medical District, Hyderabad',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80'
+  }
+];
