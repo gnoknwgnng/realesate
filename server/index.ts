@@ -25,8 +25,17 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 const uploadsDir = path.join(process.cwd(), 'uploads');
 app.use('/uploads', express.static(uploadsDir));
 
+// Root API status endpoint
+app.get(['/', '/api'], (req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    service: 'MedProperties Serverless API',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Health check endpoint
-app.get('/api/health', (req: Request, res: Response) => {
+app.get(['/api/health', '/health'], (req: Request, res: Response) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -44,13 +53,19 @@ app.get('/api/health', (req: Request, res: Response) => {
   });
 });
 
-// Mount API routes
-app.use('/api/properties', propertiesRouter);
-app.use('/api/upload', uploadRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/inquiries', inquiriesRouter);
-app.use('/api/leads', leadsRouter);
-app.use('/api/favorites', favoritesRouter);
+// Mount API routes (supports both /api/path and rewritten /path)
+app.use(['/api/properties', '/properties'], propertiesRouter);
+app.use(['/api/upload', '/upload'], uploadRouter);
+app.use(['/api/users', '/users'], usersRouter);
+app.use(['/api/inquiries', '/inquiries'], inquiriesRouter);
+app.use(['/api/leads', '/leads'], leadsRouter);
+app.use(['/api/favorites', '/favorites'], favoritesRouter);
+
+// Global Error Handler
+app.use((err: any, req: Request, res: Response, next: any) => {
+  console.error('API Error:', err);
+  res.status(500).json({ error: err?.message || 'Internal Server Error' });
+});
 
 // Start server
 async function startServer() {

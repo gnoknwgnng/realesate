@@ -266,7 +266,7 @@ propertiesRouter.delete('/:id', async (req: Request, res: Response) => {
       return res.json({ success: true, message: 'Property deleted from PostgreSQL and R2.' });
     }
 
-    const success = localStore.deleteProperty(id);
+    const success = localStore.deleteProperty(id as string);
     return res.json({ success, message: success ? 'Property deleted successfully.' : 'Property not found.' });
   } catch (err: any) {
     res.status(500).json({ error: err.message });

@@ -162,7 +162,7 @@ router.get('/:id', async (req: Request, res: Response) => {
       return res.json({ user: result.rows[0] });
     }
 
-    const user = store.getUserById(id);
+    const user = store.getUserById(id as string);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
