@@ -1,275 +1,300 @@
 import React, { useState } from 'react';
 import { useProperties } from '../context/PropertyContext';
-import { Calendar, Bed, Bath, Maximize2 } from 'lucide-react';
+import { Search, MapPin, Building, Clock, Bed, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { VERIFIED_HOSPITAL_HUBS } from '../lib/mockData';
 
 export const Hero: React.FC = () => {
-  const {
-    filters,
-    setFilters,
-    properties,
-    setSelectedProperty,
-    setIsSellModalOpen,
-    user,
-    setCurrentView,
-    openAuthModal,
-  } = useProperties();
-  const [location, setLocation] = useState('Bengaluru, Karnataka');
-  const [moveInDate, setMoveInDate] = useState('');
+  const { filters, setFilters, setCurrentView } = useProperties();
+  const [activeTab, setActiveTab] = useState<'rent' | 'buy'>(
+    filters.tab === 'buy' ? 'buy' : 'rent'
+  );
+  const [hospitalQuery, setHospitalQuery] = useState(filters.hospital || '');
+  const [selectedCity, setSelectedCity] = useState(filters.city || 'all');
+  const [commuteTime, setCommuteTime] = useState(filters.maxCommuteTime || 'all');
+  const [beds, setBeds] = useState(filters.beds || 'all');
+  const [showHospitalDropdown, setShowHospitalDropdown] = useState(false);
 
-  // The 2 preview properties from Indian dataset
-  const beverlyProp = properties.find((p) => p.title.includes('Jubilee') || p.title.includes('Whitefield')) || properties[1] || properties[0];
-  const tarponProp = properties.find((p) => p.title.includes('Nungambakkam') || p.title.includes('Indiranagar')) || properties[5] || properties[0];
-
-  const handleTabClick = (tab: 'rent' | 'buy' | 'sell') => {
-    if (tab === 'sell') {
-      if (user) {
-        setCurrentView('dashboard');
-      } else {
-        openAuthModal('login');
-      }
-    } else {
-      setFilters((prev) => ({ ...prev, tab }));
-      const el = document.getElementById('properties-section');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleTabChange = (tab: 'rent' | 'buy') => {
+    setActiveTab(tab);
+    setFilters((prev) => ({ ...prev, tab }));
   };
 
-  const handleBrowseProperties = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setFilters((prev) => ({
       ...prev,
-      location: location === 'Bengaluru, Karnataka' ? '' : location,
-      moveInDate,
+      tab: activeTab,
+      hospital: hospitalQuery,
+      city: selectedCity,
+      maxCommuteTime: commuteTime,
+      beds,
     }));
-    const el = document.getElementById('properties-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    setCurrentView(activeTab === 'buy' ? 'buy' : 'explore');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const selectHospital = (hospitalName: string, city: string) => {
+    setHospitalQuery(hospitalName);
+    setSelectedCity(city);
+    setShowHospitalDropdown(false);
+  };
+
+  const filteredHospitals = VERIFIED_HOSPITAL_HUBS.filter(
+    (h) =>
+      h.name.toLowerCase().includes(hospitalQuery.toLowerCase()) ||
+      h.locality.toLowerCase().includes(hospitalQuery.toLowerCase()) ||
+      h.city.toLowerCase().includes(hospitalQuery.toLowerCase())
+  );
+
   return (
-    <section className="relative pt-6 pb-16 lg:py-16 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <section className="relative bg-[#0A2540] text-white pt-10 pb-16 lg:pt-14 lg:pb-24 overflow-hidden">
+      {/* Subtle architectural grid pattern background */}
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#008374_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
-          {/* Left Column matching ui.pdf */}
+          {/* Left Column: Bold Architectural Statement & Search Console */}
           <div className="lg:col-span-7 space-y-7">
-            
-            {/* Main Headline */}
+            {/* Verified Reassurance Tag */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-slate-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#008374]" />
+              <span className="font-medium tracking-wide">Physician & Healthcare Housing Network</span>
+            </div>
+
+            {/* Main Editorial Headline */}
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-extrabold text-[#0A2540] leading-[1.12] tracking-tight">
-                Exclusive Real Estate <br />
-                Solutions for <br />
-                <span className="text-[#008374]">Healthcare <br className="hidden sm:inline" />Professionals</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-[58px] font-bold text-white tracking-tight leading-[1.12]">
+                A home closer to the <br />
+                <span className="text-[#008374] font-serif italic font-normal">work that matters.</span>
               </h1>
-              <p className="text-sm sm:text-base text-slate-500 max-w-xl leading-relaxed pt-1">
-                Founded by doctors, for doctors. We understand your demanding schedule and unique financing needs to help you secure the perfect home or private practice space
+              <p className="text-base sm:text-lg text-slate-300 max-w-xl font-normal leading-relaxed">
+                Explore verified residences near the hospitals that shape your day. We assist with
+                shift-calibrated search, private viewings, and seamless relocation.
               </p>
             </div>
 
-            {/* Stats Row matching ui.pdf */}
-            <div className="flex items-center gap-12 pt-1">
-              <div>
-                <span className="text-3xl sm:text-4xl font-extrabold text-[#008374] block leading-none">
-                  50k+
-                </span>
-                <span className="text-xs sm:text-sm font-medium text-slate-400 mt-1 block">
-                  renters
-                </span>
-              </div>
-
-              <div>
-                <span className="text-3xl sm:text-4xl font-extrabold text-[#008374] block leading-none">
-                  10k+
-                </span>
-                <span className="text-xs sm:text-sm font-medium text-slate-400 mt-1 block">
-                  properties
-                </span>
-              </div>
-            </div>
-
-            {/* Search Box matching ui.pdf */}
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-100 p-4 sm:p-5 max-w-xl">
-              
-              {/* Tabs: Rent | Buy | Sell */}
-              <div className="flex items-center gap-8 border-b border-slate-100 pb-3">
-                {(['rent', 'buy', 'sell'] as const).map((tab) => (
+            {/* Search Console Panel */}
+            <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-2xl text-slate-900 border border-slate-100 max-w-2xl">
+              {/* Rent / Buy Tab Selector */}
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3.5 mb-4">
+                <div className="flex items-center gap-2">
                   <button
-                    key={tab}
                     type="button"
-                    onClick={() => handleTabClick(tab)}
-                    className={`relative text-sm font-bold capitalize transition-colors pb-1 ${
-                      filters.tab === tab ? 'text-[#008374]' : 'text-slate-400 hover:text-slate-700'
+                    onClick={() => handleTabChange('rent')}
+                    className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      activeTab === 'rent'
+                        ? 'bg-[#0A2540] text-white shadow-xs'
+                        : 'text-slate-500 hover:text-slate-900 bg-slate-100/70'
                     }`}
                   >
-                    {tab}
-                    {filters.tab === tab && (
-                      <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#008374] rounded-full" />
+                    Rent near Hospital
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleTabChange('buy')}
+                    className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      activeTab === 'buy'
+                        ? 'bg-[#0A2540] text-white shadow-xs'
+                        : 'text-slate-500 hover:text-slate-900 bg-slate-100/70'
+                    }`}
+                  >
+                    Buy a Home
+                  </button>
+                </div>
+
+                <span className="text-[11px] font-medium text-slate-400 hidden sm:inline">
+                  Verified commute calculations
+                </span>
+              </div>
+
+              {/* Form Grid */}
+              <form onSubmit={handleSearch} className="space-y-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  
+                  {/* Hospital or Locality Input with Typeahead */}
+                  <div className="relative">
+                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                      Hospital or Landmark
+                    </label>
+                    <div className="relative flex items-center">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <input
+                        type="text"
+                        value={hospitalQuery}
+                        onChange={(e) => {
+                          setHospitalQuery(e.target.value);
+                          setShowHospitalDropdown(true);
+                        }}
+                        onFocus={() => setShowHospitalDropdown(true)}
+                        placeholder="e.g. Manipal, AIIMS, Apollo"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374]"
+                      />
+                    </div>
+
+                    {/* Hospital Hubs Dropdown */}
+                    {showHospitalDropdown && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 max-h-56 overflow-y-auto z-50">
+                        <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                          Major Hospital Hubs
+                        </div>
+                        {filteredHospitals.map((h, i) => (
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={() => selectHospital(h.name, h.city)}
+                            className="w-full text-left px-3 py-2 hover:bg-teal-50 flex items-start justify-between text-xs cursor-pointer group"
+                          >
+                            <div>
+                              <p className="font-semibold text-slate-800 group-hover:text-[#008374]">
+                                {h.name}
+                              </p>
+                              <p className="text-[11px] text-slate-400">{h.locality}</p>
+                            </div>
+                            <span className="text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                              {h.city}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
                     )}
+                  </div>
+
+                  {/* City Selector */}
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                      City
+                    </label>
+                    <div className="relative flex items-center">
+                      <MapPin className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <select
+                        value={selectedCity}
+                        onChange={(e) => setSelectedCity(e.target.value)}
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-white cursor-pointer"
+                      >
+                        <option value="all">All Cities</option>
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Delhi NCR">Delhi NCR / Gurugram</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Chennai">Chennai</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sub-row: Commute Time & BHK */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                      Max 8 AM Commute
+                    </label>
+                    <div className="relative flex items-center">
+                      <Clock className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <select
+                        value={commuteTime}
+                        onChange={(e) => setCommuteTime(e.target.value)}
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-white cursor-pointer"
+                      >
+                        <option value="all">Any Commute Distance</option>
+                        <option value="15">Within 15 mins</option>
+                        <option value="20">Within 20 mins</option>
+                        <option value="30">Within 30 mins</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                      Bedrooms (BHK)
+                    </label>
+                    <div className="relative flex items-center">
+                      <Bed className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <select
+                        value={beds}
+                        onChange={(e) => setBeds(e.target.value)}
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-white cursor-pointer"
+                      >
+                        <option value="all">Any Configuration</option>
+                        <option value="2">2 BHK</option>
+                        <option value="3">3 BHK</option>
+                        <option value="4">4+ BHK</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Submit Action */}
+                <button
+                  type="submit"
+                  className="w-full py-3 px-5 rounded-2xl bg-[#008374] hover:bg-[#007063] text-white text-xs font-bold tracking-wide transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer mt-2"
+                >
+                  <span>Explore Verified Homes</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </form>
+
+              {/* Quick Hospital Tags */}
+              <div className="pt-3 mt-3 border-t border-slate-100 flex items-center gap-2 overflow-x-auto text-[11px] text-slate-500">
+                <span className="font-semibold text-slate-600 shrink-0">Popular hubs:</span>
+                {[
+                  { name: 'Manipal HAL', city: 'Bengaluru' },
+                  { name: 'AIIMS', city: 'Delhi NCR' },
+                  { name: 'Apollo Jubilee', city: 'Hyderabad' },
+                  { name: 'Lilavati', city: 'Mumbai' },
+                ].map((item, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => selectHospital(item.name, item.city)}
+                    className="shrink-0 px-2 py-0.5 rounded-md bg-slate-100 hover:bg-teal-50 hover:text-[#008374] transition-colors cursor-pointer"
+                  >
+                    {item.name}
                   </button>
                 ))}
               </div>
-
-              {/* Controls Row */}
-              <form onSubmit={handleBrowseProperties} className="pt-4 flex flex-col sm:flex-row items-center gap-4">
-                
-                {/* Location */}
-                <div className="flex-1 w-full text-left">
-                  <span className="block text-[11px] font-semibold text-slate-400 mb-0.5">
-                    Location
-                  </span>
-                  <select
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    className="w-full text-sm font-bold text-slate-800 bg-transparent focus:outline-none cursor-pointer"
-                  >
-                    <option value="Bengaluru, KA">Bengaluru, Karnataka</option>
-                    <option value="Mumbai, MH">Mumbai, Maharashtra</option>
-                    <option value="New Delhi, DL">New Delhi / NCR</option>
-                    <option value="Hyderabad, TS">Hyderabad, Telangana</option>
-                    <option value="Chennai, TN">Chennai, Tamil Nadu</option>
-                    <option value="">All Indian Cities</option>
-                  </select>
-                </div>
-
-                {/* Vertical Divider */}
-                <div className="hidden sm:block w-px h-8 bg-slate-200" />
-
-                {/* When */}
-                <div className="flex-1 w-full text-left">
-                  <span className="block text-[11px] font-semibold text-slate-400 mb-0.5">
-                    When
-                  </span>
-                  <div className="flex items-center gap-1.5 text-sm font-bold text-slate-700">
-                    <input
-                      type="date"
-                      value={moveInDate}
-                      onChange={(e) => setMoveInDate(e.target.value)}
-                      placeholder="Select Move-in Date"
-                      className="w-full bg-transparent text-xs font-semibold text-slate-700 focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                {/* Browse Properties Button */}
-                <div className="w-full sm:w-auto">
-                  <button
-                    type="submit"
-                    className="w-full sm:w-auto px-6 py-3 bg-[#008374] hover:bg-[#007063] text-white text-sm font-bold rounded-lg shadow-sm transition-all whitespace-nowrap cursor-pointer"
-                  >
-                    Browse Properties
-                  </button>
-                </div>
-
-              </form>
-
             </div>
-
           </div>
 
-          {/* Right Column: Visual Map & Floating Cards matching ui.pdf */}
-          <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-full max-w-[420px] h-[540px]">
-              
-              {/* Map Route SVG Illustration matching ui.pdf */}
-              <div className="absolute inset-0 pointer-events-none">
-                <svg className="w-full h-full" viewBox="0 0 400 520" fill="none">
-                  <path
-                    d="M 330,60 C 270,110 320,180 270,240 C 220,300 180,330 200,420"
-                    stroke="#008374"
-                    strokeWidth="3"
-                    strokeDasharray="6 6"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="330" cy="60" r="14" fill="#008374" fillOpacity="0.2" />
-                  <circle cx="330" cy="60" r="7" fill="#008374" />
-                  
-                  <circle cx="270" cy="240" r="16" fill="#008374" fillOpacity="0.2" />
-                  <circle cx="270" cy="240" r="8" fill="#008374" />
+          {/* Right Column: Architectural Photography Panel (Inspired by Reference 2) */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+                alt="Verified Doctor Residence in Bengaluru"
+                className="w-full h-[460px] lg:h-[540px] object-cover group-hover:scale-102 transition-transform duration-700 ease-out"
+              />
 
-                  <circle cx="200" cy="420" r="14" fill="#008374" fillOpacity="0.2" />
-                  <circle cx="200" cy="420" r="7" fill="#008374" />
-                </svg>
+              {/* Subtle Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/90 via-[#0A2540]/30 to-transparent" />
+
+              {/* In-Frame Featured Residence Fact Card */}
+              <div className="absolute bottom-5 inset-x-5 bg-white/95 backdrop-blur-md rounded-2xl p-4 text-slate-900 border border-white/20 shadow-lg">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#008374]">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Verified Audit Complete</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                    12 Sep 2026
+                  </span>
+                </div>
+
+                <h4 className="text-sm font-bold text-[#0A2540] truncate">
+                  The Belmond Tower Residence
+                </h4>
+                <p className="text-xs text-slate-500 truncate">
+                  Old Airport Road, Bengaluru • 3 BHK (2,100 sq ft)
+                </p>
+
+                <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-1 font-semibold text-slate-700">
+                    <Clock className="w-3.5 h-3.5 text-[#008374]" />
+                    <span>8 min drive to Manipal Hospital</span>
+                  </div>
+                  <span className="font-bold text-[#0A2540]">₹85,000/mo</span>
+                </div>
               </div>
-
-              {/* Card 1: Beverly Springfield (Top Left/Center) */}
-              {beverlyProp && (
-                <div
-                  onClick={() => setSelectedProperty(beverlyProp)}
-                  className="absolute top-2 left-0 sm:-left-4 w-[260px] bg-white rounded-2xl shadow-xl shadow-slate-200/70 border border-slate-100 p-2.5 cursor-pointer hover:shadow-2xl transition-all z-20 group"
-                  title="Click to view physician property details"
-                >
-                  <div className="rounded-xl overflow-hidden h-28 mb-2">
-                    <img
-                      src={beverlyProp.image_url}
-                      alt={beverlyProp.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-
-                  <div className="space-y-0.5">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-sm font-extrabold text-[#008374]">
-                        ₹{beverlyProp.price.toLocaleString('en-IN')}
-                      </span>
-                      <span className="text-[10px] text-slate-400 font-medium">/{beverlyProp.period || 'month'}</span>
-                    </div>
-                    <h3 className="font-bold text-slate-900 text-xs truncate">{beverlyProp.title}</h3>
-                    <p className="text-[10px] text-slate-400 truncate">{beverlyProp.address}</p>
-                  </div>
-
-                  <div className="mt-2 pt-1.5 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-500 font-medium">
-                    <span className="flex items-center gap-1">
-                      <Bed className="w-3 h-3 text-[#008374]" /> {beverlyProp.beds} BHK
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Bath className="w-3 h-3 text-[#008374]" /> {beverlyProp.baths} Bath
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Maximize2 className="w-3 h-3 text-[#008374]" /> {beverlyProp.dimensions}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Card 2: Anna Nagar Heritage Villa (Bottom Right) */}
-              {tarponProp && (
-                <div
-                  onClick={() => setSelectedProperty(tarponProp)}
-                  className="absolute bottom-4 right-0 sm:-right-4 w-[240px] bg-white rounded-2xl shadow-xl shadow-slate-200/70 border border-slate-100 p-2.5 cursor-pointer hover:shadow-2xl transition-all z-20 group"
-                  title="Click to view details"
-                >
-                  <div className="rounded-xl overflow-hidden h-24 mb-2">
-                    <img
-                      src={tarponProp.image_url}
-                      alt={tarponProp.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-
-                  <div className="space-y-0.5">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-xs font-extrabold text-[#008374]">
-                        ₹{tarponProp.price.toLocaleString('en-IN')}
-                      </span>
-                      <span className="text-[9px] text-slate-400 font-medium">/{tarponProp.period || 'month'}</span>
-                    </div>
-                    <h3 className="font-bold text-slate-900 text-[11px] truncate">{tarponProp.title}</h3>
-                    <p className="text-[9px] text-slate-400 truncate">{tarponProp.address}</p>
-                  </div>
-
-                  <div className="mt-2 pt-1.5 border-t border-slate-100 flex items-center justify-between text-[9px] text-slate-500 font-medium">
-                    <span className="flex items-center gap-1">
-                      <Bed className="w-2.5 h-2.5 text-[#008374]" /> {tarponProp.beds} BHK
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Bath className="w-2.5 h-2.5 text-[#008374]" /> {tarponProp.baths} Bath
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Maximize2 className="w-2.5 h-2.5 text-[#008374]" /> {tarponProp.dimensions}
-                    </span>
-                  </div>
-                </div>
-              )}
-
             </div>
           </div>
 

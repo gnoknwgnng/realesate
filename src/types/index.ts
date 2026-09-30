@@ -29,6 +29,16 @@ export interface Property {
   property_type: string;
   description?: string;
   hospital_distance?: string;
+  hospital_name?: string;
+  commute_estimate?: string;
+  verified_date?: string;
+  verification_method?: string;
+  furnishing?: 'Fully Furnished' | 'Semi-Furnished' | 'Unfurnished';
+  deposit?: number;
+  maintenance?: number;
+  workday_amenities?: string[];
+  floor?: string;
+  facing?: string;
   virtual_tour_url?: string;
   owner_email?: string;
   owner_id?: string;
@@ -39,10 +49,14 @@ export interface Property {
 export interface SearchFilters {
   tab: 'rent' | 'buy' | 'sell';
   location: string;
+  hospital: string;
+  city: string;
   moveInDate: string;
   propertyType: string;
   priceRange: string;
   beds: string;
+  maxCommuteTime?: string;
+  sortBy?: 'relevance' | 'commute' | 'price-asc' | 'price-desc' | 'newest';
 }
 
 export interface InquiryFormData {

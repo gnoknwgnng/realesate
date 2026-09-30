@@ -2,8 +2,6 @@ import {
   S3Client,
   PutObjectCommand,
   DeleteObjectCommand,
-  GetObjectCommand,
-  HeadBucketCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import fs from 'fs';
@@ -19,10 +17,18 @@ const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 export const bucketName = process.env.R2_BUCKET_NAME || 'medproperties-media';
 export const publicUrl = process.env.R2_PUBLIC_URL || '';
 
-// Fallback local uploads folder
-const localUploadsDir = path.join(process.cwd(), 'uploads');
-if (!fs.existsSync(localUploadsDir)) {
-  fs.mkdirSync(localUploadsDir, { recursive: true });
+// Fallback local uploads folder (safely use /tmp on serverless environments)
+const isVercel = Boolean(process.env.VERCEL);
+const localUploadsDir = isVercel
+  ? path.join('/tmp', 'medproperties_uploads')
+  : path.join(process.cwd(), 'uploads');
+
+try {
+  if (!fs.existsSync(localUploadsDir)) {
+    fs.mkdirSync(localUploadsDir, { recursive: true });
+  }
+} catch {
+  // Read-only filesystem safe
 }
 
 export const isR2Configured = Boolean(
@@ -43,12 +49,6 @@ export const s3Client = isR2Configured
       },
     })
   : null;
-
-if (isR2Configured) {
-  console.log(`☁️ Cloudflare R2 Storage configured (Bucket: ${bucketName}).`);
-} else {
-  console.log('ℹ️ Cloudflare R2 credentials not set in .env. Using local media directory (/uploads).');
-}
 
 export interface UploadResult {
   key: string;
@@ -98,17 +98,28 @@ export async function uploadToR2(
   }
 
   // Local storage fallback
-  const localFilePath = path.join(localUploadsDir, `${Date.now()}-${uniqueId}${ext}`);
-  fs.writeFileSync(localFilePath, buffer);
-  const localUrl = `/uploads/${path.basename(localFilePath)}`;
+  try {
+    const localFilePath = path.join(localUploadsDir, `${Date.now()}-${uniqueId}${ext}`);
+    fs.writeFileSync(localFilePath, buffer);
+    const localUrl = `/uploads/${path.basename(localFilePath)}`;
 
-  return {
-    key,
-    url: localUrl,
-    fileName: originalName,
-    fileSize: buffer.length,
-    mimeType,
-  };
+    return {
+      key,
+      url: localUrl,
+      fileName: originalName,
+      fileSize: buffer.length,
+      mimeType,
+    };
+  } catch {
+    // If filesystem write fails on serverless, return data URI fallback
+    return {
+      key,
+      url: `data:${mimeType};base64,${buffer.toString('base64')}`,
+      fileName: originalName,
+      fileSize: buffer.length,
+      mimeType,
+    };
+  }
 }
 
 // Delete object from Cloudflare R2
@@ -131,6 +142,38 @@ export async function deleteFromR2(key: string): Promise<boolean> {
 }
 
 // Generate pre-signed upload URL for direct browser uploads
+export async function createPresignedUploadUrl(
+  fileName: string,
+  mimeType: string,
+  folder: string = 'properties'
+): Promise<{ uploadUrl: string; key: string; publicFileUrl: string }> {
+  const ext = path.extname(fileName) || '.jpg';
+  const uniqueId = crypto.randomUUID();
+  const safeName = path.basename(fileName, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
+  const key = `${folder}/${Date.now()}-${uniqueId}-${safeName}${ext}`;
+
+  if (s3Client && isR2Configured) {
+    const command = new PutObjectCommand({
+      Bucket: bucketName,
+      Key: key,
+      ContentType: mimeType,
+    });
+
+    const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    const publicFileUrl = publicUrl
+      ? `${publicUrl.replace(/\/$/, '')}/${key}`
+      : `https://${accountId}.r2.cloudflarestorage.com/${bucketName}/${key}`;
+
+    return { uploadUrl, key, publicFileUrl };
+  }
+
+  return {
+    uploadUrl: `/api/upload/single`,
+    key,
+    publicFileUrl: `/uploads/${uniqueId}${ext}`,
+  };
+}
+
 export async function getPresignedUploadUrl(
   key: string,
   mimeType: string,

@@ -31,7 +31,7 @@ router.post('/presign', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'fileName and mimeType are required' });
     }
 
-    const { createPresignedUploadUrl } = await import('../../api/lib/r2');
+    const { createPresignedUploadUrl } = await import('../r2');
     const result = await createPresignedUploadUrl(fileName, mimeType, folder);
     res.json({ success: true, ...result });
   } catch (err: any) {
