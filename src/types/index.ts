@@ -73,6 +73,7 @@ export interface UserProfile {
   location?: string;
   hospital?: string;
   last_login?: string;
+  last_active_at?: string;
   status?: 'online' | 'offline';
   device?: string;
 }
