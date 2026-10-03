@@ -26,6 +26,13 @@ import {
   MapPin,
   Laptop,
   CheckCircle2,
+  PhoneCall,
+  Activity,
+  ChevronRight,
+  Zap,
+  VolumeX,
+  Award,
+  Shield,
 } from 'lucide-react';
 
 export const DashboardPage: React.FC = () => {
@@ -42,6 +49,7 @@ export const DashboardPage: React.FC = () => {
     signOut,
     allUsers,
     deleteUser,
+    openConciergeModal,
   } = useProperties();
 
   const isSuperAdmin = user?.role === 'superadmin';
@@ -188,40 +196,50 @@ export const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFB] flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-[#F4F7F9] flex flex-col lg:flex-row">
       
-      {/* Integrated Full-Height Left Sidebar */}
-      <aside className="w-full lg:w-60 xl:w-64 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col justify-between shrink-0 lg:h-screen lg:sticky lg:top-0 z-30">
+      {/* Integrated Full-Height Left Sidebar - Executive Midnight Navy */}
+      <aside className="w-full lg:w-64 xl:w-72 bg-[#09131F] text-slate-300 border-b lg:border-b-0 lg:border-r border-slate-800/80 flex flex-col justify-between shrink-0 lg:h-screen lg:sticky lg:top-0 z-30 shadow-2xl">
         
         {/* Sidebar Top: Logo + Back to Explore */}
-        <div className="px-4 py-3.5 border-b border-slate-100 flex items-center justify-between">
+        <div className="px-5 py-4 border-b border-slate-800/80 flex items-center justify-between bg-[#060D16]/50">
           <button
             onClick={() => setCurrentView('home')}
             className="flex items-center gap-2 group cursor-pointer"
           >
-            <img src="/logo.png" alt="MedProperties" className="h-8 w-auto object-contain" />
+            <div className="h-8 w-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center p-1">
+              <img src="/logo.png" alt="MedProperties" className="h-5 w-auto object-contain" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="text-sm font-bold text-white tracking-tight leading-none">
+                MedProperties
+              </span>
+              <span className="text-[10px] text-teal-400 font-semibold tracking-wider uppercase mt-0.5">
+                Executive Portal
+              </span>
+            </div>
           </button>
 
           <button
             onClick={() => setCurrentView('home')}
-            className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-[#008374] transition-colors cursor-pointer px-2 py-1 rounded-lg hover:bg-slate-50"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white transition-colors cursor-pointer px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10"
             title="Return to Marketplace"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5 text-teal-400" />
             <span>Explore</span>
           </button>
         </div>
 
         {/* Sidebar Middle: Options stacked one by one */}
-        <div className="px-3 py-4 flex-1 overflow-y-auto space-y-4">
-          <div className="space-y-1">
-            <div className="flex items-center justify-between px-2.5 mb-1.5">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
-                {isSuperAdmin ? 'Admin Management' : 'Menu'}
+        <div className="px-3.5 py-5 flex-1 overflow-y-auto space-y-5">
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between px-3 mb-2">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                {isSuperAdmin ? 'Admin Management' : 'Navigation Menu'}
               </span>
               {isSuperAdmin && (
-                <span className="text-xs font-bold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full flex items-center gap-1">
-                  <Crown className="w-3 h-3" />
+                <span className="text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <Crown className="w-3 h-3 text-amber-300" />
                   Super Admin
                 </span>
               )}
@@ -231,24 +249,24 @@ export const DashboardPage: React.FC = () => {
             {isSuperAdmin && (
               <button
                 onClick={() => setActiveTab('users')}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
                   activeTab === 'users'
-                    ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/20'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/30 border-l-2 border-purple-300'
+                    : 'text-slate-400 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <Users className={`w-3.5 h-3.5 shrink-0 ${activeTab === 'users' ? 'text-white' : 'text-purple-600'}`} />
+                  <Users className={`w-4 h-4 shrink-0 ${activeTab === 'users' ? 'text-white' : 'text-purple-400'}`} />
                   <span className="truncate">All Logged In Users</span>
                 </div>
                 <span
-                  className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-1 ${
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-1 ${
                     activeTab === 'users'
                       ? 'bg-white/20 text-white'
-                      : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                      : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                   }`}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   {onlineUsersCount} Online
                 </span>
               </button>
@@ -258,19 +276,19 @@ export const DashboardPage: React.FC = () => {
             {isSuperAdmin && (
               <button
                 onClick={() => setActiveTab('all_properties')}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
                   activeTab === 'all_properties'
-                    ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/20'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/30 border-l-2 border-purple-300'
+                    : 'text-slate-400 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <Building2 className={`w-3.5 h-3.5 shrink-0 ${activeTab === 'all_properties' ? 'text-white' : 'text-purple-600'}`} />
-                  <span className="truncate">All Properties</span>
+                  <Building2 className={`w-4 h-4 shrink-0 ${activeTab === 'all_properties' ? 'text-white' : 'text-purple-400'}`} />
+                  <span className="truncate">Master Properties</span>
                 </div>
                 <span
-                  className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
-                    activeTab === 'all_properties' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                    activeTab === 'all_properties' ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'
                   }`}
                 >
                   {properties.length}
@@ -282,19 +300,19 @@ export const DashboardPage: React.FC = () => {
             {!isSuperAdmin && (
               <button
                 onClick={() => setActiveTab('listings')}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
                   activeTab === 'listings'
-                    ? 'bg-[#008374] text-white shadow-sm shadow-[#008374]/20'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                    ? 'bg-gradient-to-r from-[#008374] to-[#00a896] text-white shadow-lg shadow-[#008374]/30 border-l-2 border-teal-300'
+                    : 'text-slate-400 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <Building2 className={`w-3.5 h-3.5 shrink-0 ${activeTab === 'listings' ? 'text-white' : 'text-[#008374]'}`} />
+                  <Building2 className={`w-4 h-4 shrink-0 ${activeTab === 'listings' ? 'text-white' : 'text-teal-400'}`} />
                   <span className="truncate">My Listed Properties</span>
                 </div>
                 <span
-                  className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
-                    activeTab === 'listings' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                    activeTab === 'listings' ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'
                   }`}
                 >
                   {userListings.length}
@@ -305,29 +323,29 @@ export const DashboardPage: React.FC = () => {
             {/* Tenant Inquiries Tab */}
             <button
               onClick={() => setActiveTab('inquiries')}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
                 activeTab === 'inquiries'
                   ? isSuperAdmin
-                    ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/20'
-                    : 'bg-[#008374] text-white shadow-sm shadow-[#008374]/20'
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/30 border-l-2 border-purple-300'
+                    : 'bg-gradient-to-r from-[#008374] to-[#00a896] text-white shadow-lg shadow-[#008374]/30 border-l-2 border-teal-300'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
               }`}
             >
               <div className="flex items-center gap-2.5 min-w-0">
                 <Mail
-                  className={`w-3.5 h-3.5 shrink-0 ${
+                  className={`w-4 h-4 shrink-0 ${
                     activeTab === 'inquiries'
                       ? 'text-white'
                       : isSuperAdmin
-                      ? 'text-purple-600'
-                      : 'text-[#008374]'
+                      ? 'text-purple-400'
+                      : 'text-teal-400'
                   }`}
                 />
-                <span className="truncate">Tenant Inquiries</span>
+                <span className="truncate">Physician Inquiries</span>
               </div>
               <span
-                className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
-                  activeTab === 'inquiries' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                  activeTab === 'inquiries' ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'
                 }`}
               >
                 {inquiries.length}
@@ -337,21 +355,21 @@ export const DashboardPage: React.FC = () => {
             {/* Saved Homes Tab */}
             <button
               onClick={() => setActiveTab('favorites')}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
                 activeTab === 'favorites'
                   ? isSuperAdmin
-                    ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/20'
-                    : 'bg-[#008374] text-white shadow-sm shadow-[#008374]/20'
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/30 border-l-2 border-purple-300'
+                    : 'bg-gradient-to-r from-[#008374] to-[#00a896] text-white shadow-lg shadow-[#008374]/30 border-l-2 border-teal-300'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
               }`}
             >
               <div className="flex items-center gap-2.5 min-w-0">
-                <Heart className={`w-3.5 h-3.5 shrink-0 ${activeTab === 'favorites' ? 'text-white' : 'text-rose-500'}`} />
-                <span className="truncate">Saved Homes</span>
+                <Heart className={`w-4 h-4 shrink-0 ${activeTab === 'favorites' ? 'text-white' : 'text-rose-400'}`} />
+                <span className="truncate">Saved Sanctuaries</span>
               </div>
               <span
-                className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
-                  activeTab === 'favorites' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                  activeTab === 'favorites' ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'
                 }`}
               >
                 {favorites.length}
@@ -360,27 +378,27 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* List New Property Action Button */}
-          <div className="pt-2 border-t border-slate-100">
+          <div className="pt-3 border-t border-slate-800/80">
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className={`w-full flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer shadow-xs ${
+              className={`w-full flex items-center justify-center gap-2 py-2.5 px-3 text-xs font-bold rounded-xl transition-all cursor-pointer shadow-md ${
                 isSuperAdmin
-                  ? 'bg-purple-50 hover:bg-purple-100 text-purple-700 border-purple-200'
-                  : 'bg-emerald-50 hover:bg-emerald-100 text-[#008374] border-emerald-200'
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white border border-purple-400/30'
+                  : 'bg-gradient-to-r from-[#008374] to-[#00a896] hover:from-[#007063] hover:to-[#008374] text-white border border-teal-300/30 shadow-[#008374]/20'
               }`}
             >
-              <PlusCircle className="w-3.5 h-3.5 shrink-0" />
-              <span>{isSuperAdmin ? '+ Add Platform Listing' : 'List New Property'}</span>
+              <PlusCircle className="w-4 h-4 shrink-0" />
+              <span>{isSuperAdmin ? '+ Add Platform Listing' : '+ List New Property'}</span>
             </button>
           </div>
         </div>
 
         {/* Sidebar Bottom Left Corner: Profile & Sign Out */}
-        <div className="p-3 border-t border-slate-100 bg-slate-50/70">
+        <div className="p-3.5 border-t border-slate-800/80 bg-[#060D16]">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 min-w-0">
               <div
-                className={`w-8 h-8 rounded-xl text-white flex items-center justify-center text-xs font-extrabold shadow-sm shrink-0 ${
+                className={`w-9 h-9 rounded-xl text-white flex items-center justify-center text-xs font-extrabold shadow-sm shrink-0 border border-white/10 ${
                   isSuperAdmin
                     ? 'bg-gradient-to-tr from-purple-700 to-indigo-600'
                     : 'bg-gradient-to-tr from-[#008374] to-emerald-400'
@@ -395,22 +413,22 @@ export const DashboardPage: React.FC = () => {
                 )}
               </div>
               <div className="min-w-0">
-                <div className="flex items-center gap-1">
-                  <span className="font-extrabold text-[#0A2540] text-xs leading-tight truncate block">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-white text-xs leading-tight truncate block">
                     {isSuperAdmin
-                      ? 'Super Admin Console'
+                      ? 'Super Admin'
                       : user?.full_name ||
                         (user?.email === 'doctor.demo@medproperties.com'
-                          ? 'Dr. Rajesh Sharma, MD'
+                          ? 'Dr. Rajesh Sharma'
                           : user?.email ? user.email.split('@')[0] : 'Dr. Member')}
                   </span>
                   {isSuperAdmin ? (
-                    <Crown className="w-3 h-3 text-purple-600 shrink-0" />
+                    <Crown className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                   ) : (
-                    <ShieldCheck className="w-3 h-3 text-[#008374] shrink-0" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-teal-400 shrink-0" />
                   )}
                 </div>
-                <p className="text-xs text-slate-400 font-medium truncate">
+                <p className="text-[11px] text-slate-400 font-medium truncate mt-0.5">
                   {user?.email || 'superadmin@medproperties.com'}
                 </p>
               </div>
@@ -418,10 +436,10 @@ export const DashboardPage: React.FC = () => {
 
             <button
               onClick={() => signOut()}
-              className="p-1.5 border border-slate-200 hover:bg-rose-50 hover:border-rose-200 text-slate-500 hover:text-rose-600 rounded-lg transition-all cursor-pointer shrink-0"
-              title="Sign Out"
+              className="p-2 border border-slate-700/80 hover:bg-rose-500/20 hover:border-rose-500/50 text-slate-400 hover:text-rose-300 rounded-lg transition-all cursor-pointer shrink-0"
+              title="Sign Out Session"
             >
-              <LogOut className="w-3.5 h-3.5" />
+              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -464,32 +482,121 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
         ) : (
-          /* Normal User Metrics */
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-              <span className="text-xs font-bold text-slate-400 block mb-1">My Active Listings</span>
-              <span className="text-2xl sm:text-3xl font-extrabold text-[#0A2540]">{userListings.length}</span>
-              <span className="text-xs text-emerald-600 font-semibold block mt-1">Verified Active Listings</span>
+          /* Normal User Executive Suite */
+          <div className="space-y-6">
+            {/* Executive Doctor Welcome Banner */}
+            <div className="bg-gradient-to-r from-[#0A2540] via-[#0D2E4D] to-[#0A2540] rounded-3xl p-6 sm:p-7 text-white shadow-xl border border-white/10 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(#008374_1px,transparent_1px)] [background-size:20px_20px] opacity-20 pointer-events-none" />
+              
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-teal-300 text-xs font-semibold">
+                    <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+                    <span>Verified Physician Residency Suite</span>
+                    <span className="text-white/40">•</span>
+                    <span className="text-slate-300">ID: MP-BLR-4091</span>
+                  </div>
+
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    Welcome back,{' '}
+                    <span className="text-teal-300 font-serif italic font-normal">
+                      {user?.full_name || (user?.email === 'doctor.demo@medproperties.com' ? 'Dr. Rajesh Sharma' : user?.email?.split('@')[0] || 'Doctor')}
+                    </span>
+                  </h2>
+
+                  <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                    Senior Consultant • Manipal Hospital HAL Corridor. All physical acoustic audits and 100% DG switch certifications are active for your portfolio.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <button
+                    onClick={() => setIsAddModalOpen(true)}
+                    className="px-4 py-2.5 rounded-xl bg-[#008374] hover:bg-[#007063] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+                  >
+                    <PlusCircle className="w-4 h-4" />
+                    <span>Submit Residence</span>
+                  </button>
+                  <button
+                    onClick={openConciergeModal}
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer"
+                  >
+                    <PhoneCall className="w-3.5 h-3.5 text-teal-300" />
+                    <span>Talk to Concierge</span>
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-              <span className="text-xs font-bold text-slate-400 block mb-1">Inquiries Received</span>
-              <span className="text-2xl sm:text-3xl font-extrabold text-[#008374]">
-                {inquiries.length}
-              </span>
-              <span className="text-xs text-slate-400 font-medium block mt-1">From Verified Physicians</span>
-            </div>
+            {/* Elevated 4 Generative UI Metric Telemetry Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Portfolio</span>
+                  <div className="w-9 h-9 rounded-xl bg-teal-50 text-[#008374] flex items-center justify-center">
+                    <Building2 className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-extrabold text-[#0A2540]">{userListings.length}</span>
+                  <span className="text-xs font-semibold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-md">Live</span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium mt-2 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-teal-500 shrink-0" />
+                  <span>Physical Audit Complete</span>
+                </p>
+              </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-              <span className="text-xs font-bold text-slate-400 block mb-1">Saved Properties</span>
-              <span className="text-2xl sm:text-3xl font-extrabold text-[#0A2540]">{favorites.length}</span>
-              <span className="text-xs text-slate-400 font-medium block mt-1">In your personal drawer</span>
-            </div>
+              <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Doctor Inquiries</span>
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-extrabold text-[#0A2540]">{inquiries.length}</span>
+                  <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">Pipeline</span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium mt-2 flex items-center gap-1.5">
+                  <Activity className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                  <span>Avg Response: &lt; 2 hrs</span>
+                </p>
+              </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-              <span className="text-xs font-bold text-slate-400 block mb-1">Average Sourcing Time</span>
-              <span className="text-2xl sm:text-3xl font-extrabold text-[#008374]">48 hrs</span>
-              <span className="text-xs text-slate-400 font-medium block mt-1">Verification audit turnaround</span>
+              <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Saved Sanctuaries</span>
+                  <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center">
+                    <Heart className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-extrabold text-[#0A2540]">{favorites.length}</span>
+                  <span className="text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">Shortlist</span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium mt-2 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                  <span>Ready for private tour</span>
+                </p>
+              </div>
+
+              <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Acoustic & Power Standard</span>
+                  <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-extrabold text-[#008374]">&lt;40 dB</span>
+                  <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md">Grade A</span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium mt-2 flex items-center gap-1.5">
+                  <VolumeX className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                  <span>100% DG auto-switch tested</span>
+                </p>
+              </div>
             </div>
           </div>
         )}
@@ -914,82 +1021,262 @@ export const DashboardPage: React.FC = () => {
 
         {/* TAB 3: NORMAL USER - MY LISTED PROPERTIES */}
         {!isSuperAdmin && activeTab === 'listings' && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {userListings.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {userListings.map((property) => (
-                  <div
-                    key={property.id}
-                    className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all"
-                  >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                {/* Left 8 Columns: Residences Cards & Protocol */}
+                <div className="lg:col-span-8 space-y-6">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
                     <div>
-                      <div className="relative aspect-[16/10] bg-slate-100">
-                        <img
-                          src={property.image_url}
-                          alt={property.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <span className="absolute top-3 left-3 bg-emerald-500/95 backdrop-blur-md text-white text-xs font-bold px-2.5 py-0.5 rounded-md shadow-xs">
-                          ● Active Listing
-                        </span>
-                        <span className="absolute top-3 right-3 bg-navy-900/80 backdrop-blur-md text-white text-xs font-bold px-2 py-0.5 rounded-md">
-                          For {property.category}
-                        </span>
+                      <h3 className="text-lg font-bold text-[#0A2540] flex items-center gap-2">
+                        <Building2 className="w-5 h-5 text-[#008374]" />
+                        <span>My Verified Residences ({userListings.length})</span>
+                      </h3>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        Physical field audits passed with acoustic testing and DG switch telemetry.
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => setIsAddModalOpen(true)}
+                      className="px-3.5 py-2 rounded-xl bg-teal-50 hover:bg-teal-100 text-[#008374] font-bold text-xs border border-teal-200 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    >
+                      <PlusCircle className="w-3.5 h-3.5" />
+                      <span>Add Listing</span>
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {userListings.map((property) => (
+                      <div
+                        key={property.id}
+                        className="bg-white rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+                      >
+                        <div>
+                          <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                            <img
+                              src={property.image_url}
+                              alt={property.title}
+                              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+                            
+                            <span className="absolute top-3 left-3 bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                              Audit Approved
+                            </span>
+                            
+                            <span className="absolute top-3 right-3 bg-[#0A2540]/90 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                              For {property.category}
+                            </span>
+
+                            {property.hospital_distance && (
+                              <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md rounded-xl px-2.5 py-1 text-[11px] font-semibold text-[#0A2540] flex items-center justify-between">
+                                <span className="flex items-center gap-1 truncate text-[#008374]">
+                                  <Clock className="w-3 h-3 text-[#008374] shrink-0" />
+                                  <span className="truncate">{property.hospital_distance}</span>
+                                </span>
+                                <span className="text-[10px] text-slate-400 font-mono">Verified</span>
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="p-5 space-y-3">
+                            <div className="flex items-baseline justify-between">
+                              <span className="text-xl font-extrabold text-[#0A2540] font-serif">
+                                ₹{property.price.toLocaleString('en-IN')}&nbsp;{property.period ? `/${property.period}` : ''}
+                              </span>
+                              <span className="text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md border border-teal-100">
+                                100% DG Backup
+                              </span>
+                            </div>
+
+                            <div>
+                              <h4 className="font-bold text-[#0A2540] text-base leading-snug group-hover:text-[#008374] transition-colors">
+                                {property.title}
+                              </h4>
+                              <p className="text-xs text-slate-500 truncate mt-0.5">{property.address}</p>
+                            </div>
+
+                            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-medium">
+                              <span className="flex items-center gap-1">
+                                <Bed className="w-3.5 h-3.5 text-[#008374]" /> {property.beds} BHK
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Bath className="w-3.5 h-3.5 text-[#008374]" /> {property.baths} Baths
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Maximize2 className="w-3.5 h-3.5 text-[#008374]" /> {property.dimensions}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Card Actions */}
+                        <div className="p-4 pt-0 border-t border-slate-100 flex items-center justify-between gap-2.5">
+                          <button
+                            onClick={() => viewPropertyDetail(property)}
+                            className="flex-1 py-2.5 bg-slate-50 hover:bg-[#0A2540] hover:text-white text-[#0A2540] text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>Preview Residency</span>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteListing(property.id, property.title)}
+                            className="p-2.5 border border-slate-200 hover:border-rose-300 text-slate-400 hover:text-rose-600 rounded-xl transition-colors cursor-pointer"
+                            title="Delete listing"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
+                    ))}
+                  </div>
 
-                      <div className="p-5 space-y-2">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-xl font-extrabold text-[#008374]">
-                            ₹{property.price.toLocaleString('en-IN')}
-                          </span>
-                          <span className="text-xs text-slate-400">/{property.period || 'month'}</span>
-                        </div>
-
-                        <h3 className="font-bold text-[#0A2540] text-base">{property.title}</h3>
-                        <p className="text-xs text-slate-400 truncate">{property.address}</p>
-
-                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
-                          <span className="flex items-center gap-1">
-                            <Bed className="w-3.5 h-3.5 text-[#008374]" /> {property.beds} BHK
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Bath className="w-3.5 h-3.5 text-[#008374]" /> {property.baths} Baths
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Maximize2 className="w-3.5 h-3.5 text-[#008374]" /> {property.dimensions}
-                          </span>
-                        </div>
+                  {/* Certified Quality Protocol Seal Banner */}
+                  <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 text-[#008374] flex items-center justify-center shrink-0">
+                        <Award className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-bold text-[#0A2540] uppercase tracking-wider">
+                          Certified Physician Tenancy Protocol
+                        </h4>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Properties in this dashboard undergo quarterly acoustic decibel checks and generator automatic transfer switch (ATS) verification.
+                        </p>
                       </div>
                     </div>
 
-                    {/* Card Actions */}
-                    <div className="p-4 pt-0 border-t border-slate-50 flex items-center justify-between gap-2">
-                      <button
-                        onClick={() => viewPropertyDetail(property)}
-                        className="flex-1 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-1 cursor-pointer"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        Preview
-                      </button>
-                      <button
-                        onClick={() => handleDeleteListing(property.id, property.title)}
-                        className="p-2 border border-slate-200 hover:border-rose-300 text-slate-400 hover:text-rose-600 rounded-xl transition-colors cursor-pointer"
-                        title="Delete listing"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                    <button
+                      onClick={openConciergeModal}
+                      className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0A2540] text-xs font-bold transition-colors whitespace-nowrap cursor-pointer shrink-0"
+                    >
+                      Audit Reports
+                    </button>
+                  </div>
+                </div>
+
+                {/* Right 4 Columns: Physician Relocation & Concierge Console */}
+                <div className="lg:col-span-4 space-y-6">
+                  {/* Card 1: Dedicated Medical Housing Concierge */}
+                  <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+                    <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#008374] to-teal-400 text-white font-extrabold flex items-center justify-center text-sm shadow-md">
+                        PN
+                      </div>
+                      <div>
+                        <span className="text-[11px] font-bold text-[#008374] uppercase tracking-wider block">
+                          Assigned Concierge
+                        </span>
+                        <h4 className="font-extrabold text-[#0A2540] text-sm">Priya Nair</h4>
+                        <p className="text-[11px] text-slate-500">Lead Medical Relocation Officer</p>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Need emergency lease assistance, late-night shift viewing scheduling, or relocation support between hospitals?
+                    </p>
+
+                    <div className="space-y-2 text-xs">
+                      <div className="p-3 rounded-xl bg-slate-50 flex items-center justify-between font-semibold text-slate-700">
+                        <span>Direct Physician Line</span>
+                        <span className="text-[#008374] font-bold">+91 80 4567 8900</span>
+                      </div>
+                      <div className="p-3 rounded-xl bg-slate-50 flex items-center justify-between font-semibold text-slate-700">
+                        <span>Active Search Perimeter</span>
+                        <span className="text-slate-800 font-bold">&lt; 15 min corridor</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={openConciergeModal}
+                      className="w-full py-3 px-4 rounded-xl bg-[#008374] hover:bg-[#007063] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <PhoneCall className="w-3.5 h-3.5" />
+                      <span>Request Accompanied Viewing</span>
+                    </button>
+                  </div>
+
+                  {/* Card 2: 4-Point Hospital Residence Audit Standards */}
+                  <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-[#0A2540] text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <Shield className="w-4 h-4 text-[#008374]" />
+                        <span>Audit Standards</span>
+                      </h4>
+                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        All Certified
+                      </span>
+                    </div>
+
+                    <ul className="space-y-2.5 text-xs">
+                      <li className="p-2.5 rounded-xl bg-slate-50 flex items-center justify-between">
+                        <span className="text-slate-600 flex items-center gap-1.5">
+                          <Zap className="w-3.5 h-3.5 text-[#008374]" />
+                          <span>100% DG Auto-Switch</span>
+                        </span>
+                        <span className="font-bold text-emerald-700">&lt; 15 sec</span>
+                      </li>
+                      <li className="p-2.5 rounded-xl bg-slate-50 flex items-center justify-between">
+                        <span className="text-slate-600 flex items-center gap-1.5">
+                          <VolumeX className="w-3.5 h-3.5 text-[#008374]" />
+                          <span>Acoustic Decibel Floor</span>
+                        </span>
+                        <span className="font-bold text-emerald-700">&lt; 40 dB</span>
+                      </li>
+                      <li className="p-2.5 rounded-xl bg-slate-50 flex items-center justify-between">
+                        <span className="text-slate-600 flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#008374]" />
+                          <span>Continuous RO Pressure</span>
+                        </span>
+                        <span className="font-bold text-emerald-700">Certified</span>
+                      </li>
+                      <li className="p-2.5 rounded-xl bg-slate-50 flex items-center justify-between">
+                        <span className="text-slate-600 flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#008374]" />
+                          <span>Biometric Security Access</span>
+                        </span>
+                        <span className="font-bold text-emerald-700">24/7 Gated</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Card 3: 8:00 AM Hospital Commute Radar */}
+                  <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs space-y-3">
+                    <h4 className="font-bold text-[#0A2540] text-xs uppercase tracking-wider flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 text-[#008374]" />
+                      <span>8:00 AM Hospital Commute</span>
+                    </h4>
+
+                    <div className="space-y-2 text-xs">
+                      <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
+                        <span className="font-semibold text-slate-700">Manipal Hospital HAL</span>
+                        <span className="font-bold text-[#008374]">8 min drive</span>
+                      </div>
+                      <div className="flex items-center justify-between py-1.5 border-b border-slate-100">
+                        <span className="font-semibold text-slate-700">Apollo Jubilee / Bannerghatta</span>
+                        <span className="font-bold text-slate-800">14 min drive</span>
+                      </div>
+                      <div className="flex items-center justify-between py-1.5">
+                        <span className="font-semibold text-slate-700">Lilavati / AIIMS Perimeter</span>
+                        <span className="font-bold text-slate-800">19 min drive</span>
+                      </div>
                     </div>
                   </div>
-                ))}
+                </div>
+
               </div>
             ) : (
-              <div className="bg-white rounded-3xl p-12 text-center border border-dashed border-slate-200 space-y-4 max-w-xl mx-auto">
-                <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-[#008374] flex items-center justify-center mx-auto">
+              <div className="bg-white rounded-3xl p-12 text-center border border-dashed border-slate-200 space-y-4 max-w-xl mx-auto shadow-xs">
+                <div className="w-16 h-16 rounded-2xl bg-teal-50 text-[#008374] flex items-center justify-center mx-auto">
                   <Building2 className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-[#0A2540]">You haven't listed any properties yet</h3>
-                  <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
+                  <h3 className="text-lg font-bold text-[#0A2540]">You haven't listed any residences yet</h3>
+                  <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1 leading-relaxed">
                     Connect your real estate with verified Indian doctors, medical postgraduates, and hospital fellows.
                   </p>
                 </div>
@@ -1004,7 +1291,7 @@ export const DashboardPage: React.FC = () => {
                   <button
                     onClick={handleClaimSampleListings}
                     disabled={loading}
-                    className="w-full sm:w-auto px-5 py-2.5 border border-brand-200 bg-brand-50 text-[#008374] font-bold text-xs rounded-xl hover:bg-brand-100 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full sm:w-auto px-5 py-2.5 border border-teal-200 bg-teal-50 text-[#008374] font-bold text-xs rounded-xl hover:bg-teal-100 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
                     Assign Sample Listing

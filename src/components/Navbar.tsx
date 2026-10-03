@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useProperties } from '../context/PropertyContext';
-import { Menu, X, Heart, Building2, Crown, ChevronDown, User, Sparkles, PhoneCall } from 'lucide-react';
+import { Menu, X, Heart, Building2, Crown, ChevronDown, User, Sparkles, PhoneCall, ShieldCheck, LogOut } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const {
@@ -17,6 +17,29 @@ export const Navbar: React.FC = () => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdown, setUserDropdown] = useState(false);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
+        setUserDropdown(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setUserDropdown(false);
+      }
+    };
+
+    if (userDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [userDropdown]);
 
   const navigateTo = (view: 'home' | 'explore' | 'buy' | 'landlord' | 'how-it-works' | 'financing' | 'resources') => {
     setMobileMenuOpen(false);
@@ -125,57 +148,91 @@ export const Navbar: React.FC = () => {
 
             {/* Account authentication state */}
             {user ? (
-              <div className="relative" onMouseLeave={() => setUserDropdown(false)}>
+              <div className="relative" ref={userDropdownRef}>
                 <button
-                  onMouseEnter={() => setUserDropdown(true)}
-                  onClick={() => setUserDropdown(!userDropdown)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 bg-white transition-all text-xs font-semibold text-[#0A2540] cursor-pointer shadow-xs"
+                  type="button"
+                  onClick={() => setUserDropdown((prev) => !prev)}
+                  className={`flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border transition-all duration-200 text-xs font-semibold cursor-pointer shadow-xs select-none ${
+                    userDropdown
+                      ? 'bg-[#0A2540] text-white border-[#0A2540] shadow-md ring-2 ring-[#008374]/30'
+                      : 'bg-slate-50/80 hover:bg-slate-100 text-[#0A2540] border-slate-200 hover:border-slate-300'
+                  }`}
                   aria-expanded={userDropdown}
+                  aria-haspopup="true"
                 >
                   <div
-                    className={`w-6 h-6 rounded-full text-white flex items-center justify-center text-xs font-bold ${
+                    className={`w-6 h-6 rounded-full text-white flex items-center justify-center text-xs font-bold transition-transform duration-200 ${
+                      userDropdown ? 'scale-105' : ''
+                    } ${
                       user.role === 'superadmin' ? 'bg-purple-600' : 'bg-[#008374]'
                     }`}
                   >
                     {user.role === 'superadmin' ? (
-                      <Crown className="w-3 h-3 text-amber-300" />
+                      <Crown className="w-3.5 h-3.5 text-amber-300" />
                     ) : (
                       user.email.charAt(0).toUpperCase()
                     )}
                   </div>
-                  <span className="max-w-[110px] truncate">{user.email.split('@')[0]}</span>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                  <span className={`max-w-[120px] truncate tracking-tight ${userDropdown ? 'text-white font-bold' : 'text-[#0A2540]'}`}>
+                    {user.email.split('@')[0]}
+                  </span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      userDropdown ? 'rotate-180 text-teal-300' : 'text-slate-400'
+                    }`}
+                  />
                 </button>
 
                 {userDropdown && (
-                  <div className="absolute right-0 top-full w-56 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 mt-1 animate-in fade-in z-50">
-                    <div className="px-4 py-2 border-b border-slate-100">
-                      <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
-                        {user.role === 'superadmin' ? 'Super Administrator' : 'Healthcare Member'}
-                      </p>
-                      <p className="text-xs font-bold text-[#0A2540] truncate">{user.email}</p>
+                  <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                    {/* Executive Header Banner */}
+                    <div className="bg-[#0A2540] text-white p-4 border-b border-slate-800">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[11px] font-bold text-teal-300 uppercase tracking-wider flex items-center gap-1">
+                          <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+                          {user.role === 'superadmin' ? 'Super Administrator' : 'Verified Member'}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-semibold border border-emerald-500/30">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          Active
+                        </span>
+                      </div>
+                      <p className="text-xs font-extrabold text-white truncate">{user.email}</p>
                     </div>
 
-                    <button
-                      onClick={() => {
-                        setCurrentView('dashboard');
-                        setUserDropdown(false);
-                      }}
-                      className="w-full text-left px-4 py-2 hover:bg-slate-50 text-xs font-medium text-slate-700 flex items-center gap-2 cursor-pointer"
-                    >
-                      <Building2 className="w-4 h-4 text-[#008374]" />
-                      Management Dashboard
-                    </button>
+                    {/* Menu Actions */}
+                    <div className="p-2 space-y-1 text-xs">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCurrentView('dashboard');
+                          setUserDropdown(false);
+                        }}
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-50 font-bold text-[#0A2540] flex items-center justify-between group transition-colors cursor-pointer"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-7 h-7 rounded-lg bg-teal-50 text-[#008374] flex items-center justify-center group-hover:bg-[#008374] group-hover:text-white transition-colors">
+                            <Building2 className="w-4 h-4" />
+                          </div>
+                          <span>Management Dashboard</span>
+                        </div>
+                        <span className="text-slate-400 group-hover:text-[#008374] text-xs">→</span>
+                      </button>
 
-                    <button
-                      onClick={() => {
-                        signOut();
-                        setUserDropdown(false);
-                      }}
-                      className="w-full text-left px-4 py-2 hover:bg-rose-50 text-xs font-medium text-rose-600 flex items-center gap-2 cursor-pointer border-t border-slate-100 mt-1"
-                    >
-                      Sign Out
-                    </button>
+                      <div className="my-1 border-t border-slate-100" />
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          signOut();
+                          setUserDropdown(false);
+                        }}
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-rose-50 font-semibold text-rose-600 flex items-center gap-2.5 transition-colors cursor-pointer"
+                      >
+                        <LogOut className="w-4 h-4 text-rose-500" />
+                        <span>Sign Out Session</span>
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
