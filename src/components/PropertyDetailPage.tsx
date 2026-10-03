@@ -28,12 +28,13 @@ export const PropertyDetailPage: React.FC = () => {
     favorites,
     toggleFavorite,
     showToast,
+    user,
   } = useProperties();
 
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    name: user?.full_name || '',
+    email: user?.email || '',
     phone: '',
     preferred_slot: 'Evening (7:00 PM - 9:00 PM)',
     hospital_affiliation: '',
@@ -102,7 +103,7 @@ export const PropertyDetailPage: React.FC = () => {
     setIsSubmitting(true);
     const res = await apiSaveInquiry({
       name: formData.name,
-      email: formData.email || 'doctor@medproperties.in',
+      email: formData.email || user?.email || '',
       phone: formData.phone,
       medical_role: formData.hospital_affiliation || 'Healthcare Specialist',
       tour_date: formData.preferred_slot,
@@ -459,6 +460,19 @@ export const PropertyDetailPage: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
+                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-hidden focus:border-[#008374]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      Email Address (For Tour Confirmation)
+                    </label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="doctor@hospital.org"
                       className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-hidden focus:border-[#008374]"
                     />
                   </div>

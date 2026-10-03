@@ -161,7 +161,7 @@ export const AddPropertyModal: React.FC = () => {
         is_popular: formData.is_popular,
       });
 
-      showToast('Property created successfully in PostgreSQL & Cloudflare R2!', 'success');
+      showToast('Property listing submitted for verification audit.', 'success');
       setIsAddModalOpen(false);
     } catch (err: any) {
       showToast(err.message || 'Failed to save property', 'error');
@@ -179,8 +179,8 @@ export const AddPropertyModal: React.FC = () => {
             <PlusCircle className="w-5 h-5 text-brand-700" />
             <div>
               <h3 className="text-lg font-bold text-navy-900">List a Medical Property</h3>
-              <p className="text-[11px] text-slate-500 font-medium">
-                Saves structured data in PostgreSQL & media in Cloudflare R2
+              <p className="text-xs text-slate-500 font-medium">
+                Audited residential listing for healthcare professionals
               </p>
             </div>
           </div>
@@ -342,22 +342,22 @@ export const AddPropertyModal: React.FC = () => {
             </div>
           </div>
 
-          {/* Cloudflare R2 Media Uploader */}
+          {/* Architectural Media Uploader */}
           <div className="border border-brand-200 bg-brand-50/30 rounded-2xl p-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <UploadCloud className="w-4 h-4 text-brand-700" />
                 <label className="font-bold text-slate-800">
-                  Cloudflare R2 Media Gallery (Multiple Images)
+                  Property Photography & Media Gallery
                 </label>
               </div>
-              <span className="text-[11px] text-brand-700 font-bold bg-brand-100/70 px-2 py-0.5 rounded-full">
-                S3-Compatible R2 Storage
+              <span className="text-xs text-brand-700 font-bold bg-brand-100/70 px-2 py-0.5 rounded-full">
+                High-Resolution Gallery
               </span>
             </div>
 
-            <p className="text-[11px] text-slate-500 mb-3">
-              Upload property photos directly to Cloudflare R2. Supports JPEG, PNG, WebP up to 10MB each.
+            <p className="text-xs text-slate-500 mb-3">
+              Upload photographs of room layouts, acoustic isolation features, and floor plans. Supports JPEG, PNG, WebP up to 10MB each.
             </p>
 
             <input
@@ -374,12 +374,12 @@ export const AddPropertyModal: React.FC = () => {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="flex items-center gap-2 px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-bold transition-all shadow-sm disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-bold transition-all shadow-sm disabled:opacity-50 cursor-pointer"
               >
                 {isUploading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Uploading to R2...
+                    Uploading photos...
                   </>
                 ) : (
                   <>
@@ -389,7 +389,7 @@ export const AddPropertyModal: React.FC = () => {
                 )}
               </button>
 
-              <span className="text-slate-400 text-[11px]">
+              <span className="text-slate-400 text-xs">
                 {uploadedImages.length} image(s) uploaded
               </span>
             </div>
@@ -411,7 +411,7 @@ export const AddPropertyModal: React.FC = () => {
                     />
 
                     {img.isPrimary && (
-                      <span className="absolute top-1 left-1 bg-brand-700 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow flex items-center gap-1">
+                      <span className="absolute top-1 left-1 bg-brand-700 text-white text-xs font-bold px-1.5 py-0.5 rounded shadow flex items-center gap-1">
                         <Star className="w-3 h-3 fill-white" /> Primary Cover
                       </span>
                     )}

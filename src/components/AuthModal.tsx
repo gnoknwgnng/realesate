@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useProperties } from '../context/PropertyContext';
 import { getSupabaseClient } from '../lib/supabase';
 import { UserProfile } from '../types';
-import { X, Lock, Mail, Stethoscope, ShieldCheck, AlertCircle, CheckCircle2, Eye, EyeOff, Sparkles, Crown, ShieldAlert } from 'lucide-react';
+import { X, Lock, Mail, UserCheck, ShieldCheck, AlertCircle, CheckCircle2, Eye, EyeOff, Sparkles, Crown, ShieldAlert } from 'lucide-react';
 
 export const AuthModal: React.FC = () => {
   const {
@@ -308,7 +308,7 @@ export const AuthModal: React.FC = () => {
                       : 'border-slate-200 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
-                  <Stethoscope className="w-4 h-4" />
+                  <UserCheck className="w-4 h-4" />
                   <span>Physician</span>
                 </button>
                 <button

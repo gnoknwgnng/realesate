@@ -9,7 +9,7 @@ export const FavoritesDrawer: React.FC = () => {
     favorites,
     properties,
     toggleFavorite,
-    setSelectedProperty,
+    viewPropertyDetail,
   } = useProperties();
 
   if (!isFavoritesDrawerOpen) return null;
@@ -44,7 +44,7 @@ export const FavoritesDrawer: React.FC = () => {
               <div
                 key={prop.id}
                 onClick={() => {
-                  setSelectedProperty(prop);
+                  viewPropertyDetail(prop);
                   setIsFavoritesDrawerOpen(false);
                 }}
                 className="group flex gap-3 p-3 rounded-2xl border border-slate-100 hover:border-brand-200 hover:shadow-md transition-all cursor-pointer bg-slate-50/50"

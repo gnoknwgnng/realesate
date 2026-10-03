@@ -254,14 +254,14 @@ export const ClinicalShiftPlanner: React.FC = () => {
                       key={hub.id}
                       type="button"
                       onClick={() => setSelectedHospital(hub.id)}
-                      className={`p-3 rounded-xl text-left border transition-all cursor-pointer ${
+                      className={`p-2.5 sm:p-3 rounded-xl text-left border transition-all cursor-pointer min-w-0 ${
                         selectedHospital === hub.id
                           ? 'border-[#008374] bg-white text-[#008374] shadow-xs font-bold ring-1 ring-[#008374]'
                           : 'border-slate-200 bg-white/70 hover:bg-white text-slate-700'
                       }`}
                     >
                       <span className="block text-xs truncate font-bold">{hub.label}</span>
-                      <span className="block text-xs text-slate-400">{hub.city}</span>
+                      <span className="block text-xs text-slate-400 truncate">{hub.city}</span>
                     </button>
                   ))}
                 </div>
@@ -283,14 +283,14 @@ export const ClinicalShiftPlanner: React.FC = () => {
                       key={shift.id}
                       type="button"
                       onClick={() => setSelectedShift(shift.id)}
-                      className={`p-3 rounded-xl text-left border transition-all cursor-pointer ${
+                      className={`p-2.5 sm:p-3 rounded-xl text-left border transition-all cursor-pointer min-w-0 ${
                         selectedShift === shift.id
                           ? 'border-[#008374] bg-white text-[#008374] shadow-xs font-bold ring-1 ring-[#008374]'
                           : 'border-slate-200 bg-white/70 hover:bg-white text-slate-700'
                       }`}
                     >
-                      <span className="block text-xs font-bold">{shift.label}</span>
-                      <span className="block text-xs text-slate-400">{shift.sub}</span>
+                      <span className="block text-xs font-bold leading-tight truncate">{shift.label}</span>
+                      <span className="block text-xs text-slate-400 truncate mt-0.5">{shift.sub}</span>
                     </button>
                   ))}
                 </div>

@@ -6,19 +6,19 @@
   <title>MedProperties — Clinical Shift Commute & Residence Fit Planner</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
 </head>
-<body class="bg-transparent text-[var(--foreground)] antialiased p-4 sm:p-6 font-sans">
-  <div class="max-w-2xl mx-auto bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl p-5 sm:p-6 shadow-md">
+<body class="bg-transparent text-[var(--foreground)] antialiased p-4 font-sans">
+  <div class="max-w-2xl mx-auto bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl p-4 sm:p-5 shadow-sm">
     
     <!-- Header -->
-    <div class="flex items-center justify-between border-b border-[var(--border)] pb-4 mb-4">
+    <div class="flex items-center justify-between border-b border-[var(--border)] pb-3 mb-3">
       <div>
-        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-semibold mb-1">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-semibold mb-1">
           <svg class="w-3.5 h-3.5 text-[#008374]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
           </svg>
           <span>MedProperties Verified Clinical Telemetry</span>
         </div>
-        <h2 class="text-[var(--foreground)] font-bold text-lg tracking-tight">
+        <h2 class="text-[var(--foreground)] font-bold text-base sm:text-lg tracking-tight leading-snug">
           Clinical Shift Commute & Residence Fit Planner
         </h2>
         <p class="text-[var(--muted-foreground)] text-xs mt-0.5">
@@ -33,13 +33,13 @@
     </div>
 
     <!-- Interactive Grid Form -->
-    <div class="space-y-4 text-xs">
+    <div class="space-y-3 text-xs">
       
       <!-- Row 1: Hospital Corridor & Clinical Shift -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label class="block font-bold text-[var(--foreground)] mb-1">Target Hospital Hub</label>
-          <select id="hospitalSelect" class="w-full px-3 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:border-[#008374] cursor-pointer">
+          <select id="hospitalSelect" class="w-full px-3 py-2 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:border-[#008374] cursor-pointer text-xs">
             <option value="manipal">Manipal Hospital HAL (Bengaluru)</option>
             <option value="aiims">AIIMS Ansari Nagar (Delhi NCR)</option>
             <option value="apollo">Apollo Jubilee Hills (Hyderabad)</option>
@@ -50,7 +50,7 @@
 
         <div>
           <label class="block font-bold text-[var(--foreground)] mb-1">Clinical Duty Window</label>
-          <select id="shiftSelect" class="w-full px-3 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:border-[#008374] cursor-pointer">
+          <select id="shiftSelect" class="w-full px-3 py-2 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:border-[#008374] cursor-pointer text-xs">
             <option value="morning">08:00 AM Morning Handover (Peak Traffic)</option>
             <option value="oncall">Emergency On-Call (Anytime Rapid Access)</option>
             <option value="night">08:00 PM Night Shift Handover</option>
@@ -60,70 +60,70 @@
       </div>
 
       <!-- Row 2: Property Budget Range Slider -->
-      <div class="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--background)]/50 space-y-2">
+      <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]/50 space-y-1.5">
         <div class="flex items-center justify-between">
-          <span class="font-bold text-[var(--foreground)]">Monthly Rental / Valuation Target</span>
+          <span class="font-bold text-[var(--foreground)]">Monthly Rental / Target</span>
           <span id="budgetValueText" class="font-bold text-[#008374] font-mono text-xs">₹75,000 / month</span>
         </div>
         <input id="budgetSlider" type="range" min="35000" max="250000" step="5000" value="75000" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#008374]">
         <div class="flex justify-between text-xs text-[var(--muted-foreground)] font-mono">
           <span>₹35k (1-2 BHK)</span>
-          <span>₹1.2L (3 BHK Premium)</span>
+          <span>₹1.2L (3 BHK Luxury)</span>
           <span>₹2.5L (Specialist Penthouse)</span>
         </div>
       </div>
 
       <!-- Live Calculated Output Metrics Cards -->
-      <div class="grid grid-cols-3 gap-2.5 pt-1">
+      <div class="grid grid-cols-3 gap-2 pt-0.5">
         <!-- Commute Duration -->
-        <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--card)] text-center">
-          <span class="text-xs text-[var(--muted-foreground)] font-medium block">Tested Commute</span>
-          <span id="commuteMinutes" class="text-lg font-bold text-[#008374] font-mono block mt-0.5">14 mins</span>
-          <span id="commuteDistance" class="text-xs text-[var(--muted-foreground)]">3.2 km direct route</span>
+        <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--card)] text-center">
+          <span class="text-xs text-[var(--muted-foreground)] font-medium block">Commute</span>
+          <span id="commuteMinutes" class="text-base sm:text-lg font-bold text-[#008374] font-mono block mt-0.5">14 mins</span>
+          <span id="commuteDistance" class="text-xs text-[var(--muted-foreground)] block truncate">3.2 km direct route</span>
         </div>
 
         <!-- Acoustic Decibels -->
-        <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--card)] text-center">
-          <span class="text-xs text-[var(--muted-foreground)] font-medium block">Acoustic Noise</span>
-          <span id="acousticDb" class="text-lg font-bold text-[#0A2540] font-mono block mt-0.5">38 dB</span>
-          <span class="text-xs text-teal-700 font-medium">Post-Call Rest Cert</span>
+        <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--card)] text-center">
+          <span class="text-xs text-[var(--muted-foreground)] font-medium block">Acoustic</span>
+          <span id="acousticDb" class="text-base sm:text-lg font-bold text-[#0A2540] font-mono block mt-0.5">38 dB</span>
+          <span class="text-xs text-teal-700 font-medium block truncate">Post-Call Rest Cert</span>
         </div>
 
         <!-- DG Power Backup -->
-        <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--card)] text-center">
-          <span class="text-xs text-[var(--muted-foreground)] font-medium block">DG Generator</span>
-          <span class="text-lg font-bold text-[#008374] font-mono block mt-0.5">&lt; 8 sec</span>
-          <span class="text-xs text-[var(--muted-foreground)]">100% Load Switch</span>
+        <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--card)] text-center">
+          <span class="text-xs text-[var(--muted-foreground)] font-medium block">DG Backup</span>
+          <span class="text-base sm:text-lg font-bold text-[#008374] font-mono block mt-0.5">&lt; 8 sec</span>
+          <span class="text-xs text-[var(--muted-foreground)] block truncate">100% Load Switch</span>
         </div>
       </div>
 
       <!-- Recommended Verified Residences matching profile -->
-      <div class="p-3.5 rounded-xl border border-[var(--border)] bg-teal-50/50 space-y-2">
+      <div class="p-3 rounded-xl border border-[var(--border)] bg-teal-50/50 space-y-1.5">
         <div class="flex items-center justify-between text-xs">
-          <span class="font-bold text-[#0A2540] flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-[#008374]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span class="font-bold text-[#0A2540] flex items-center gap-1.5 truncate">
+            <svg class="w-3.5 h-3.5 text-[#008374] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
             </svg>
-            Optimal Verified Residence Match:
+            <span class="truncate">Optimal Verified Residence:</span>
           </span>
-          <span id="matchScore" class="font-bold text-[#008374] bg-white px-2 py-0.5 rounded border border-teal-200">
+          <span id="matchScore" class="font-bold text-[#008374] bg-white px-2 py-0.5 rounded border border-teal-200 shrink-0">
             98% Fit Score
           </span>
         </div>
-        <p id="residenceRecommendation" class="text-xs text-slate-700 font-medium">
+        <p id="residenceRecommendation" class="text-xs text-slate-700 font-medium truncate">
           The Belmond Tower Residence • Old Airport Road (3 BHK • 12 min drive at 8:00 AM)
         </p>
       </div>
 
       <!-- Action Row -->
-      <div class="pt-2 flex items-center gap-3">
-        <button id="bookTourBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-[#008374] hover:bg-[#007063] text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+      <div class="pt-1 flex items-center gap-2.5">
+        <button id="bookTourBtn" class="flex-1 py-2 px-3.5 rounded-xl bg-[#008374] hover:bg-[#007063] text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
           </svg>
           <span>Schedule Shift-Friendly Tour</span>
         </button>
-        <button id="calcDoctorLoanBtn" class="py-2.5 px-4 rounded-xl border border-[var(--border)] bg-[var(--background)] hover:bg-slate-100 text-[var(--foreground)] font-semibold text-xs transition-all cursor-pointer">
+        <button id="calcDoctorLoanBtn" class="py-2 px-3.5 rounded-xl border border-[var(--border)] bg-[var(--background)] hover:bg-slate-100 text-[var(--foreground)] font-semibold text-xs transition-all cursor-pointer">
           Simulate 90% LTV Loan
         </button>
       </div>

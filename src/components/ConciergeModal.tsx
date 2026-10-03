@@ -4,12 +4,12 @@ import { apiSaveInquiry } from '../lib/supabase';
 import { X, PhoneCall, ShieldCheck, CheckCircle2, Clock, Lock } from 'lucide-react';
 
 export const ConciergeModal: React.FC = () => {
-  const { isConciergeOpen, setIsConciergeOpen, showToast } = useProperties();
+  const { isConciergeOpen, setIsConciergeOpen, showToast, user } = useProperties();
 
   const [formData, setFormData] = useState({
-    name: '',
+    name: user?.full_name || '',
     phone: '',
-    email: '',
+    email: user?.email || '',
     hospital: '',
     role: 'Physician / Specialist',
     timeline: 'Within 30 days',
@@ -30,7 +30,7 @@ export const ConciergeModal: React.FC = () => {
     setIsSubmitting(true);
     await apiSaveInquiry({
       name: formData.name,
-      email: formData.email || 'doctor@medproperties.in',
+      email: formData.email || user?.email || '',
       phone: formData.phone,
       medical_role: `${formData.role} - Hospital: ${formData.hospital || 'Unspecified'}`,
       tour_date: formData.timeline,
@@ -153,18 +153,15 @@ export const ConciergeModal: React.FC = () => {
 
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    Move-in Target
+                    Email Address (Optional)
                   </label>
-                  <select
-                    value={formData.timeline}
-                    onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-hidden focus:border-[#008374] bg-white cursor-pointer"
-                  >
-                    <option>Immediately (Within 7 days)</option>
-                    <option>Within 30 days</option>
-                    <option>Within 60 days</option>
-                    <option>Next Rotation / Semester</option>
-                  </select>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="doctor@hospital.org"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-hidden focus:border-[#008374]"
+                  />
                 </div>
               </div>
 
@@ -189,9 +186,9 @@ export const ConciergeModal: React.FC = () => {
                 <span>{isSubmitting ? 'Registering...' : 'Request Specialist Callback'}</span>
               </button>
 
-              <div className="pt-2 text-[11px] text-slate-400 space-y-1 text-center">
+              <div className="pt-2 text-xs text-slate-400 space-y-1 text-center">
                 <p className="flex items-center justify-center gap-1">
-                  <Lock className="w-3 h-3 text-[#008374]" />
+                  <Lock className="w-3.5 h-3.5 text-[#008374]" />
                   <span>Strictly confidential. No third-party broker broadcasts.</span>
                 </p>
                 <p>Standard response SLA: within 2 business hours.</p>

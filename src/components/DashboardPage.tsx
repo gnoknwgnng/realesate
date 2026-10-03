@@ -11,7 +11,7 @@ import {
   Phone,
   ArrowLeft,
   Sparkles,
-  Stethoscope,
+  UserCheck,
   ShieldCheck,
   Bed,
   Bath,
@@ -35,7 +35,7 @@ export const DashboardPage: React.FC = () => {
     favorites,
     setCurrentView,
     setIsAddModalOpen,
-    setSelectedProperty,
+    viewPropertyDetail,
     addNewProperty,
     deleteProperty,
     showToast,
@@ -204,7 +204,7 @@ export const DashboardPage: React.FC = () => {
 
           <button
             onClick={() => setCurrentView('home')}
-            className="flex items-center gap-1 text-[11px] font-bold text-slate-500 hover:text-[#008374] transition-colors cursor-pointer px-2 py-1 rounded-lg hover:bg-slate-50"
+            className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-[#008374] transition-colors cursor-pointer px-2 py-1 rounded-lg hover:bg-slate-50"
             title="Return to Marketplace"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
@@ -216,12 +216,12 @@ export const DashboardPage: React.FC = () => {
         <div className="px-3 py-4 flex-1 overflow-y-auto space-y-4">
           <div className="space-y-1">
             <div className="flex items-center justify-between px-2.5 mb-1.5">
-              <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
                 {isSuperAdmin ? 'Admin Management' : 'Menu'}
               </span>
               {isSuperAdmin && (
-                <span className="text-[9px] font-extrabold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded-full flex items-center gap-1">
-                  <Crown className="w-2.5 h-2.5" />
+                <span className="text-xs font-bold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <Crown className="w-3 h-3" />
                   Super Admin
                 </span>
               )}
@@ -242,7 +242,7 @@ export const DashboardPage: React.FC = () => {
                   <span className="truncate">All Logged In Users</span>
                 </div>
                 <span
-                  className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-1 ${
+                  className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-1 ${
                     activeTab === 'users'
                       ? 'bg-white/20 text-white'
                       : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
@@ -269,7 +269,7 @@ export const DashboardPage: React.FC = () => {
                   <span className="truncate">All Properties</span>
                 </div>
                 <span
-                  className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full shrink-0 ${
+                  className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
                     activeTab === 'all_properties' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
                   }`}
                 >
@@ -293,7 +293,7 @@ export const DashboardPage: React.FC = () => {
                   <span className="truncate">My Listed Properties</span>
                 </div>
                 <span
-                  className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full shrink-0 ${
+                  className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
                     activeTab === 'listings' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
                   }`}
                 >
@@ -326,11 +326,11 @@ export const DashboardPage: React.FC = () => {
                 <span className="truncate">Tenant Inquiries</span>
               </div>
               <span
-                className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full shrink-0 ${
+                className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
                   activeTab === 'inquiries' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
                 }`}
               >
-                {inquiries.length > 0 ? inquiries.length : 2}
+                {inquiries.length}
               </span>
             </button>
 
@@ -350,7 +350,7 @@ export const DashboardPage: React.FC = () => {
                 <span className="truncate">Saved Homes</span>
               </div>
               <span
-                className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full shrink-0 ${
+                className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${
                   activeTab === 'favorites' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
                 }`}
               >
@@ -410,7 +410,7 @@ export const DashboardPage: React.FC = () => {
                     <ShieldCheck className="w-3 h-3 text-[#008374] shrink-0" />
                   )}
                 </div>
-                <p className="text-[10px] text-slate-400 font-medium truncate">
+                <p className="text-xs text-slate-400 font-medium truncate">
                   {user?.email || 'superadmin@medproperties.com'}
                 </p>
               </div>
@@ -437,7 +437,7 @@ export const DashboardPage: React.FC = () => {
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
               <span className="text-xs font-bold text-slate-400 block mb-1">Total Users Registered</span>
               <span className="text-2xl sm:text-3xl font-extrabold text-[#0A2540]">{allUsers.length}</span>
-              <span className="text-[11px] text-purple-700 font-semibold block mt-1">Platform Account Registry</span>
+              <span className="text-xs text-purple-700 font-semibold block mt-1">Platform Account Registry</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
@@ -446,21 +446,21 @@ export const DashboardPage: React.FC = () => {
                 <span className="text-2xl sm:text-3xl font-extrabold text-emerald-600">{onlineUsersCount}</span>
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping inline-block" />
               </div>
-              <span className="text-[11px] text-slate-400 font-medium block mt-1">Active Real-Time Sessions</span>
+              <span className="text-xs text-slate-400 font-medium block mt-1">Active Real-Time Sessions</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
               <span className="text-xs font-bold text-slate-400 block mb-1">Total Platform Properties</span>
               <span className="text-2xl sm:text-3xl font-extrabold text-[#008374]">{properties.length}</span>
-              <span className="text-[11px] text-slate-400 font-medium block mt-1">Across 5 Indian Metros</span>
+              <span className="text-xs text-slate-400 font-medium block mt-1">Across 5 Indian Metros</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
               <span className="text-xs font-bold text-slate-400 block mb-1">Physician Inquiries</span>
               <span className="text-2xl sm:text-3xl font-extrabold text-[#0A2540]">
-                {inquiries.length > 0 ? inquiries.length : 2}
+                {inquiries.length}
               </span>
-              <span className="text-[11px] text-emerald-600 font-semibold block mt-1">100% Doctor Verification</span>
+              <span className="text-xs text-emerald-600 font-semibold block mt-1">Doctor Inquiry Pipeline</span>
             </div>
           </div>
         ) : (
@@ -469,27 +469,27 @@ export const DashboardPage: React.FC = () => {
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
               <span className="text-xs font-bold text-slate-400 block mb-1">My Active Listings</span>
               <span className="text-2xl sm:text-3xl font-extrabold text-[#0A2540]">{userListings.length}</span>
-              <span className="text-[11px] text-emerald-600 font-semibold block mt-1">Live in PostgreSQL</span>
+              <span className="text-xs text-emerald-600 font-semibold block mt-1">Verified Active Listings</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
               <span className="text-xs font-bold text-slate-400 block mb-1">Inquiries Received</span>
               <span className="text-2xl sm:text-3xl font-extrabold text-[#008374]">
-                {inquiries.length > 0 ? inquiries.length : 2}
+                {inquiries.length}
               </span>
-              <span className="text-[11px] text-slate-400 font-medium block mt-1">From Doctors & Residents</span>
+              <span className="text-xs text-slate-400 font-medium block mt-1">From Verified Physicians</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
               <span className="text-xs font-bold text-slate-400 block mb-1">Saved Properties</span>
               <span className="text-2xl sm:text-3xl font-extrabold text-[#0A2540]">{favorites.length}</span>
-              <span className="text-[11px] text-slate-400 font-medium block mt-1">In your personal drawer</span>
+              <span className="text-xs text-slate-400 font-medium block mt-1">In your personal drawer</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-              <span className="text-xs font-bold text-slate-400 block mb-1">Monthly Placement Rate</span>
-              <span className="text-2xl sm:text-3xl font-extrabold text-[#008374]">100%</span>
-              <span className="text-[11px] text-emerald-600 font-semibold block mt-1">Physician Guarantee</span>
+              <span className="text-xs font-bold text-slate-400 block mb-1">Average Sourcing Time</span>
+              <span className="text-2xl sm:text-3xl font-extrabold text-[#008374]">48 hrs</span>
+              <span className="text-xs text-slate-400 font-medium block mt-1">Verification audit turnaround</span>
             </div>
           </div>
         )}
@@ -583,7 +583,7 @@ export const DashboardPage: React.FC = () => {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
-                    <tr className="bg-slate-50/80 border-b border-slate-100 text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">
+                    <tr className="bg-slate-50/80 border-b border-slate-100 text-xs font-bold text-slate-400 uppercase tracking-wider">
                       <th className="py-3.5 px-6">User & Profile</th>
                       <th className="py-3.5 px-4">Role</th>
                       <th className="py-3.5 px-4">Hospital / Location</th>
@@ -631,12 +631,12 @@ export const DashboardPage: React.FC = () => {
                                       {u.full_name || u.email.split('@')[0]}
                                     </span>
                                     {isCurrent && (
-                                      <span className="text-[9px] font-extrabold bg-purple-100 text-purple-700 px-1.5 py-0.2 rounded-md">
+                                      <span className="text-xs font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded-md">
                                         You
                                       </span>
                                     )}
                                   </div>
-                                  <span className="text-[11px] text-slate-400 block truncate">{u.email}</span>
+                                  <span className="text-xs text-slate-400 block truncate">{u.email}</span>
                                 </div>
                               </div>
                             </td>
@@ -644,20 +644,20 @@ export const DashboardPage: React.FC = () => {
                             {/* Role badge */}
                             <td className="py-4 px-4">
                               {u.role === 'superadmin' && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-purple-50 text-purple-700 border border-purple-200">
-                                  <Crown className="w-3 h-3 text-purple-600" />
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                                  <Crown className="w-3.5 h-3.5 text-purple-600" />
                                   Super Admin
                                 </span>
                               )}
                               {u.role === 'doctor' && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-50 text-[#008374] border border-emerald-200">
-                                  <Stethoscope className="w-3 h-3" />
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-[#008374] border border-emerald-200">
+                                  <UserCheck className="w-3.5 h-3.5" />
                                   Physician / Resident
                                 </span>
                               )}
                               {u.role === 'landlord' && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-700 border border-blue-200">
-                                  <ShieldCheck className="w-3 h-3" />
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                                  <ShieldCheck className="w-3.5 h-3.5" />
                                   Property Owner
                                 </span>
                               )}
@@ -669,8 +669,8 @@ export const DashboardPage: React.FC = () => {
                                 <span className="font-semibold text-slate-800 block text-xs">
                                   {u.hospital || 'Hospital Network Partner'}
                                 </span>
-                                <span className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
-                                  <MapPin className="w-3 h-3 text-slate-400" />
+                                <span className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
                                   {u.location || 'India'}
                                 </span>
                               </div>
@@ -679,12 +679,12 @@ export const DashboardPage: React.FC = () => {
                             {/* Status */}
                             <td className="py-4 px-4">
                               {isOnline ? (
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                   Online Now
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium bg-slate-100 text-slate-500">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-500">
                                   <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                                   Offline
                                 </span>
@@ -693,12 +693,12 @@ export const DashboardPage: React.FC = () => {
 
                             {/* Last Login & Device */}
                             <td className="py-4 px-4">
-                              <div className="text-[11px]">
+                              <div className="text-xs">
                                 <span className="font-bold text-slate-700 block">
                                   {formatTimeAgo(u.last_login)}
                                 </span>
                                 <span className="text-slate-400 flex items-center gap-1 mt-0.5 truncate max-w-[160px]">
-                                  <Laptop className="w-3 h-3 shrink-0" />
+                                  <Laptop className="w-3.5 h-3.5 shrink-0" />
                                   {u.device || 'Web Session'}
                                 </span>
                               </div>
@@ -707,7 +707,7 @@ export const DashboardPage: React.FC = () => {
                             {/* Actions */}
                             <td className="py-4 px-6 text-right">
                               {isCurrent ? (
-                                <span className="text-[11px] font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-lg">
+                                <span className="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-lg">
                                   Active Session
                                 </span>
                               ) : (
@@ -826,10 +826,10 @@ export const DashboardPage: React.FC = () => {
                           alt={property.title}
                           className="w-full h-full object-cover"
                         />
-                        <span className="absolute top-3 left-3 bg-emerald-500/95 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-md shadow-xs">
+                        <span className="absolute top-3 left-3 bg-emerald-500/95 backdrop-blur-md text-white text-xs font-bold px-2.5 py-0.5 rounded-md shadow-xs">
                           ● Active Listing
                         </span>
-                        <span className="absolute top-3 right-3 bg-navy-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
+                        <span className="absolute top-3 right-3 bg-navy-900/80 backdrop-blur-md text-white text-xs font-bold px-2 py-0.5 rounded-md">
                           For {property.category}
                         </span>
                       </div>
@@ -846,7 +846,7 @@ export const DashboardPage: React.FC = () => {
                         <p className="text-xs text-slate-400 truncate">{property.address}</p>
 
                         {property.hospital_distance && (
-                          <div className="text-[11px] font-semibold text-[#008374] bg-emerald-50/70 px-2.5 py-1 rounded-lg">
+                          <div className="text-xs font-semibold text-[#008374] bg-emerald-50/70 px-2.5 py-1 rounded-lg">
                             {property.hospital_distance}
                           </div>
                         )}
@@ -864,7 +864,7 @@ export const DashboardPage: React.FC = () => {
                         </div>
 
                         {/* Owner Information */}
-                        <div className="pt-2 border-t border-slate-50 text-[10px] text-slate-400 flex items-center justify-between">
+                        <div className="pt-2 border-t border-slate-50 text-xs text-slate-400 flex items-center justify-between">
                           <span className="truncate">Listed By: {property.owner_email || 'Verified Landlord'}</span>
                           <span className="font-bold text-slate-500">{property.city}</span>
                         </div>
@@ -874,7 +874,7 @@ export const DashboardPage: React.FC = () => {
                     {/* Admin Actions */}
                     <div className="p-4 pt-0 border-t border-slate-50 flex items-center justify-between gap-2">
                       <button
-                        onClick={() => setSelectedProperty(property)}
+                        onClick={() => viewPropertyDetail(property)}
                         className="flex-1 py-2 bg-slate-50 hover:bg-purple-50 hover:text-purple-700 text-slate-700 text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-1 cursor-pointer"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -929,10 +929,10 @@ export const DashboardPage: React.FC = () => {
                           alt={property.title}
                           className="w-full h-full object-cover"
                         />
-                        <span className="absolute top-3 left-3 bg-emerald-500/95 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-md shadow-xs">
+                        <span className="absolute top-3 left-3 bg-emerald-500/95 backdrop-blur-md text-white text-xs font-bold px-2.5 py-0.5 rounded-md shadow-xs">
                           ● Active Listing
                         </span>
-                        <span className="absolute top-3 right-3 bg-navy-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
+                        <span className="absolute top-3 right-3 bg-navy-900/80 backdrop-blur-md text-white text-xs font-bold px-2 py-0.5 rounded-md">
                           For {property.category}
                         </span>
                       </div>
@@ -965,7 +965,7 @@ export const DashboardPage: React.FC = () => {
                     {/* Card Actions */}
                     <div className="p-4 pt-0 border-t border-slate-50 flex items-center justify-between gap-2">
                       <button
-                        onClick={() => setSelectedProperty(property)}
+                        onClick={() => viewPropertyDetail(property)}
                         className="flex-1 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-1 cursor-pointer"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -1019,77 +1019,67 @@ export const DashboardPage: React.FC = () => {
         {activeTab === 'inquiries' && (
           <div className="space-y-4">
             <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm space-y-4">
-              <h3 className="font-bold text-[#0A2540] text-sm">
-                Tour Inquiries from Medical Professionals across India
-              </h3>
-              
-              <div className="divide-y divide-slate-100">
-                <div className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-[#0A2540] text-sm">Dr. Rajesh Sharma, MD</span>
-                      <span className="text-[10px] font-extrabold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
-                        Cardiology Resident
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-500">
-                      "Looking for a 12-month lease starting June 20th. Relocating to AIIMS New Delhi."
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-slate-400 pt-1">
-                      <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-[#008374]" /> rajesh.sharma@aiims.edu</span>
-                      <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-[#008374]" /> +91 98101 23456</span>
-                      <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-[#008374]" /> Tour: June 15, 2026</span>
-                    </div>
-                  </div>
-                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl shrink-0 self-start sm:self-auto">
-                    Verified MD Credentials
-                  </span>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-bold text-[#0A2540] text-sm">
+                    Verified Healthcare Professional Inquiries
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Tour requests and lease inquiries submitted by doctors and fellows for your properties.
+                  </p>
                 </div>
-
-                <div className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-[#0A2540] text-sm">Dr. Sneha Patel, MS</span>
-                      <span className="text-[10px] font-extrabold bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full">
-                        Pediatric Surgery Resident
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-500">
-                      "Requesting a private video walk-through of the master suite blackout curtains and quiet study near Manipal Hospital."
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-slate-400 pt-1">
-                      <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-[#008374]" /> sneha.patel@manipal.org</span>
-                      <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-[#008374]" /> +91 98450 87654</span>
-                      <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-[#008374]" /> Tour: July 1, 2026</span>
-                    </div>
-                  </div>
-                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl shrink-0 self-start sm:self-auto">
-                    Verified MD Credentials
-                  </span>
-                </div>
-
-                {inquiries.map((inq, idx) => (
-                  <div key={idx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-[#0A2540] text-sm">{inq.name}</span>
-                        <span className="text-[10px] font-extrabold bg-emerald-50 text-[#008374] px-2 py-0.5 rounded-full">
-                          {inq.medical_role}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-500">"{inq.message}"</p>
-                      <div className="flex items-center gap-4 text-xs text-slate-400 pt-1">
-                        <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-[#008374]" /> {inq.email}</span>
-                        {inq.phone && <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-[#008374]" /> {inq.phone}</span>}
-                        {inq.tour_date && <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-[#008374]" /> {inq.tour_date}</span>}
-                      </div>
-                    </div>
-                    <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl shrink-0 self-start sm:self-auto">
-                      Direct Application
-                    </span>
-                  </div>
-                ))}
+                <span className="text-xs font-semibold px-2.5 py-1 bg-teal-50 text-[#008374] rounded-lg border border-teal-100">
+                  {inquiries.length} Active {inquiries.length === 1 ? 'Inquiry' : 'Inquiries'}
+                </span>
               </div>
+              
+              {inquiries.length > 0 ? (
+                <div className="divide-y divide-slate-100">
+                  {inquiries.map((inq, idx) => (
+                    <div key={idx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-[#0A2540] text-sm">{inq.name}</span>
+                          <span className="text-xs font-bold bg-emerald-50 text-[#008374] px-2.5 py-0.5 rounded-full border border-emerald-100">
+                            {inq.medical_role}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-600">"{inq.message}"</p>
+                        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-1">
+                          {inq.email && (
+                            <span className="flex items-center gap-1">
+                              <Mail className="w-3.5 h-3.5 text-[#008374]" /> {inq.email}
+                            </span>
+                          )}
+                          {inq.phone && (
+                            <span className="flex items-center gap-1">
+                              <Phone className="w-3.5 h-3.5 text-[#008374]" /> {inq.phone}
+                            </span>
+                          )}
+                          {inq.tour_date && (
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3.5 h-3.5 text-[#008374]" /> {inq.tour_date}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl shrink-0 self-start sm:self-auto border border-emerald-100">
+                        Direct Inquiry
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="py-12 text-center space-y-3">
+                  <div className="w-12 h-12 rounded-2xl bg-teal-50 text-[#008374] flex items-center justify-center mx-auto">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-bold text-[#0A2540] text-base">No Inquiries Yet</h4>
+                  <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+                    When physicians and hospital residents request accompanied tours or lease terms for your listings, their inquiries will appear here with verified clinical credentials.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -1102,7 +1092,7 @@ export const DashboardPage: React.FC = () => {
                 {savedProperties.map((property) => (
                   <div
                     key={property.id}
-                    onClick={() => setSelectedProperty(property)}
+                    onClick={() => viewPropertyDetail(property)}
                     className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden cursor-pointer hover:shadow-lg transition-all"
                   >
                     <div className="relative aspect-[16/10] bg-slate-100">

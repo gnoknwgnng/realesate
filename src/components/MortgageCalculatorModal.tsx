@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useProperties } from '../context/PropertyContext';
-import { X, Calculator, DollarSign, Stethoscope, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, Calculator, DollarSign, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface MortgageCalculatorModalProps {
   isOpen: boolean;
@@ -180,7 +180,7 @@ export const MortgageCalculatorModal: React.FC<MortgageCalculatorModalProps> = (
           {/* Physician Perks */}
           <div className="bg-slate-50 rounded-2xl p-4 space-y-2">
             <h4 className="font-bold text-[#0A2540] flex items-center gap-1.5 text-xs">
-              <Stethoscope className="w-4 h-4 text-[#008374]" />
+              <ShieldCheck className="w-4 h-4 text-[#008374]" />
               Doctor Home Loan Advantages (SBI / HDFC / ICICI)
             </h4>
             <ul className="space-y-1 text-slate-600 text-xs">
