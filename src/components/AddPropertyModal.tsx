@@ -193,7 +193,8 @@ export const AddPropertyModal: React.FC = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="overflow-y-auto p-6 space-y-4 flex-1 text-xs">
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
+          <div className="overflow-y-auto p-6 space-y-4 flex-1 text-xs">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block font-bold text-slate-600 mb-1">Property Title *</label>
@@ -466,32 +467,34 @@ export const AddPropertyModal: React.FC = () => {
               Highlight as "POPULAR" listing
             </label>
           </div>
+        </div>
 
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={() => setIsAddModalOpen(false)}
-              className="px-5 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-100 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting || isUploading}
-              className="px-6 py-2.5 rounded-xl font-bold text-white bg-brand-700 hover:bg-brand-800 transition-all shadow-md disabled:opacity-50 flex items-center gap-2"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Saving to PostgreSQL...
-                </>
-              ) : (
-                'Save to PostgreSQL & R2'
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
+        {/* Sticky Modal Action Footer */}
+        <div className="p-4 px-6 border-t border-slate-100 bg-white flex items-center justify-end gap-3 shrink-0">
+          <button
+            type="button"
+            onClick={() => setIsAddModalOpen(false)}
+            className="px-5 py-2.5 rounded-xl font-bold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer text-xs"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting || isUploading}
+            className="px-6 py-2.5 rounded-xl font-bold text-white bg-[#008374] hover:bg-[#007063] transition-all shadow-md disabled:opacity-50 flex items-center gap-2 cursor-pointer text-xs"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Submitting for Verification...
+              </>
+            ) : (
+              'Submit Property for Verification Audit'
+            )}
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
   );
 };

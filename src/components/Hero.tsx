@@ -75,17 +75,17 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Search Console Panel */}
-            <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-2xl text-slate-900 border border-slate-100 max-w-2xl">
+            <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-6 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] text-slate-900 border border-white/40 max-w-2xl">
               {/* Rent / Buy Tab Selector */}
               <div className="flex items-center justify-between border-b border-slate-100 pb-3.5 mb-4">
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => handleTabChange('rent')}
-                    className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       activeTab === 'rent'
-                        ? 'bg-[#0A2540] text-white shadow-xs'
-                        : 'text-slate-500 hover:text-slate-900 bg-slate-100/70'
+                        ? 'bg-[#0A2540] text-white shadow-sm'
+                        : 'text-slate-500 hover:text-slate-900 bg-slate-100/80 hover:bg-slate-200/70'
                     }`}
                   >
                     Rent near Hospital
@@ -93,10 +93,10 @@ export const Hero: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleTabChange('buy')}
-                    className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       activeTab === 'buy'
-                        ? 'bg-[#0A2540] text-white shadow-xs'
-                        : 'text-slate-500 hover:text-slate-900 bg-slate-100/70'
+                        ? 'bg-[#0A2540] text-white shadow-sm'
+                        : 'text-slate-500 hover:text-slate-900 bg-slate-100/80 hover:bg-slate-200/70'
                     }`}
                   >
                     Buy a Home

@@ -25,14 +25,16 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-12 border-b border-white/10">
           <div className="space-y-1">
             <div className="flex items-center gap-3">
-              <img
-                src="/logo.png"
-                alt="MedProperties"
-                className="h-9 w-auto object-contain brightness-0 invert"
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
-              />
+              <div className="h-9 w-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="MedProperties"
+                  className="h-6 w-auto object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              </div>
               <span className="text-xl font-bold tracking-tight text-white">
                 MedProperties
               </span>

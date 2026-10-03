@@ -99,65 +99,76 @@ export const SearchResultsPage: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-4 pt-3 border-t border-slate-100">
             {/* Active Filter Chips */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs text-slate-400 font-medium">Filters:</span>
+            <div className="flex flex-wrap items-center gap-2 min-h-[28px]">
+              {hasActiveFilters ? (
+                <>
+                  <span className="text-xs text-slate-400 font-medium">Active filters:</span>
 
-              {filters.hospital && (
-                <span className="inline-flex items-center gap-1 text-xs bg-teal-50 text-[#008374] font-medium px-2.5 py-1 rounded-full border border-teal-100">
-                  Hospital: {filters.hospital}
+                  {filters.hospital && (
+                    <span className="inline-flex items-center gap-1.5 text-xs bg-teal-50 text-[#008374] font-semibold px-2.5 py-1 rounded-full border border-teal-200/60 shadow-xs">
+                      Hospital: {filters.hospital}
+                      <button
+                        onClick={() => setFilters((p) => ({ ...p, hospital: '' }))}
+                        className="hover:text-teal-900 cursor-pointer transition-colors"
+                        aria-label="Remove hospital filter"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  )}
+
+                  {filters.city && filters.city !== 'all' && (
+                    <span className="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 font-semibold px-2.5 py-1 rounded-full border border-slate-200/60 shadow-xs">
+                      City: {filters.city}
+                      <button
+                        onClick={() => setFilters((p) => ({ ...p, city: 'all' }))}
+                        className="hover:text-slate-900 cursor-pointer transition-colors"
+                        aria-label="Remove city filter"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  )}
+
+                  {filters.beds && filters.beds !== 'all' && (
+                    <span className="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 font-semibold px-2.5 py-1 rounded-full border border-slate-200/60 shadow-xs">
+                      {filters.beds} BHK
+                      <button
+                        onClick={() => setFilters((p) => ({ ...p, beds: 'all' }))}
+                        className="hover:text-slate-900 cursor-pointer transition-colors"
+                        aria-label="Remove BHK filter"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  )}
+
+                  {filters.maxCommuteTime && filters.maxCommuteTime !== 'all' && (
+                    <span className="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 font-semibold px-2.5 py-1 rounded-full border border-slate-200/60 shadow-xs">
+                      &lt; {filters.maxCommuteTime} mins at 8 AM
+                      <button
+                        onClick={() => setFilters((p) => ({ ...p, maxCommuteTime: 'all' }))}
+                        className="hover:text-slate-900 cursor-pointer transition-colors"
+                        aria-label="Remove commute filter"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  )}
+
                   <button
-                    onClick={() => setFilters((p) => ({ ...p, hospital: '' }))}
-                    className="hover:text-teal-900 cursor-pointer"
+                    onClick={resetFilters}
+                    className="text-xs text-rose-600 hover:text-rose-700 font-semibold flex items-center gap-1 ml-1 cursor-pointer transition-colors"
                   >
-                    <X className="w-3 h-3" />
+                    <RotateCcw className="w-3 h-3" />
+                    Reset all
                   </button>
+                </>
+              ) : (
+                <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" />
+                  Showing all audited doctor residences
                 </span>
-              )}
-
-              {filters.city && filters.city !== 'all' && (
-                <span className="inline-flex items-center gap-1 text-xs bg-slate-100 text-slate-700 font-medium px-2.5 py-1 rounded-full">
-                  City: {filters.city}
-                  <button
-                    onClick={() => setFilters((p) => ({ ...p, city: 'all' }))}
-                    className="hover:text-slate-900 cursor-pointer"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              )}
-
-              {filters.beds && filters.beds !== 'all' && (
-                <span className="inline-flex items-center gap-1 text-xs bg-slate-100 text-slate-700 font-medium px-2.5 py-1 rounded-full">
-                  {filters.beds} BHK
-                  <button
-                    onClick={() => setFilters((p) => ({ ...p, beds: 'all' }))}
-                    className="hover:text-slate-900 cursor-pointer"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              )}
-
-              {filters.maxCommuteTime && filters.maxCommuteTime !== 'all' && (
-                <span className="inline-flex items-center gap-1 text-xs bg-slate-100 text-slate-700 font-medium px-2.5 py-1 rounded-full">
-                  &lt; {filters.maxCommuteTime} mins at 8 AM
-                  <button
-                    onClick={() => setFilters((p) => ({ ...p, maxCommuteTime: 'all' }))}
-                    className="hover:text-slate-900 cursor-pointer"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              )}
-
-              {hasActiveFilters && (
-                <button
-                  onClick={resetFilters}
-                  className="text-xs text-rose-600 hover:text-rose-700 font-medium flex items-center gap-1 ml-1 cursor-pointer"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                  Reset all
-                </button>
               )}
             </div>
 
