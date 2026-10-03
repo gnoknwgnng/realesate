@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Property } from '../types';
 import { useProperties } from '../context/PropertyContext';
-import { Bed, Bath, Maximize2, Heart, CheckCircle2, Clock, Zap, VolumeX, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { Bed, Bath, Maximize2, Heart, CheckCircle2, Clock, Zap, VolumeX, ShieldCheck, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PropertyCardProps {
   property: Property;
@@ -10,6 +10,32 @@ interface PropertyCardProps {
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const { favorites, toggleFavorite, viewPropertyDetail } = useProperties();
   const isFavorite = favorites.includes(property.id);
+
+  // Collect unique photos for micro-carousel
+  const allImages = useMemo(() => {
+    const list: string[] = [property.image_url];
+    if (property.images && Array.isArray(property.images)) {
+      property.images.forEach((img: any) => {
+        const url = typeof img === 'string' ? img : img?.r2_url;
+        if (url && typeof url === 'string' && !list.includes(url)) {
+          list.push(url);
+        }
+      });
+    }
+    return list;
+  }, [property.image_url, property.images]);
+
+  const [activePhotoIdx, setActivePhotoIdx] = useState(0);
+
+  const handleNextPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActivePhotoIdx((prev) => (prev + 1) % allImages.length);
+  };
+
+  const handlePrevPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActivePhotoIdx((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
 
   // Use non-breaking space before Cr to prevent awkward line breaks
   const formattedPrice =
@@ -20,16 +46,50 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
     <article
       onClick={() => viewPropertyDetail(property)}
-      className="group bg-white rounded-3xl border border-stone-200/80 hover:border-teal-700/40 shadow-xs hover:shadow-2xl hover:shadow-stone-900/10 transition-all duration-400 flex flex-col overflow-hidden cursor-pointer"
+      className="group bg-white rounded-3xl border border-stone-200/80 hover:border-teal-700/40 shadow-xs hover:shadow-2xl hover:shadow-stone-900/10 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer"
     >
-      {/* Property Image with Verified Overlay */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
+      {/* Property Image with Verified Overlay & Photo Micro-Carousel */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100 select-none">
         <img
-          src={property.image_url}
+          src={allImages[activePhotoIdx] || property.image_url}
           alt={property.title}
           loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700 ease-out"
+          className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-500 ease-out"
         />
+
+        {/* Carousel Chevrons (visible on hover if multiple photos) */}
+        {allImages.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={handlePrevPhoto}
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-105 z-20"
+              aria-label="Previous photo"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNextPhoto}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-105 z-20"
+              aria-label="Next photo"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+
+            {/* Photo Pagination Dots */}
+            <div className="absolute bottom-11 inset-x-0 flex items-center justify-center gap-1.5 z-10 pointer-events-none">
+              {allImages.slice(0, 5).map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`h-1.5 rounded-full transition-all duration-200 ${
+                    idx === activePhotoIdx ? 'w-4 bg-white shadow-xs' : 'w-1.5 bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
 
         {/* Verified Badge */}
         <div className="absolute top-3.5 left-3.5 flex flex-col gap-1.5 z-10">
@@ -38,7 +98,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             <span className="tracking-wide">Verified Residence</span>
           </div>
           {property.verified_date && (
-            <span className="text-xs text-stone-300 bg-[#09131F]/80 backdrop-blur-md px-2.5 py-0.5 rounded-lg font-mono border border-white/10 self-start">
+            <span className="text-[11px] text-stone-300 bg-[#09131F]/80 backdrop-blur-md px-2.5 py-0.5 rounded-lg font-mono border border-white/10 self-start">
               Audited {property.verified_date}
             </span>
           )}
@@ -51,14 +111,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             e.stopPropagation();
             toggleFavorite(property.id);
           }}
-          className={`absolute top-3.5 right-3.5 w-10 h-10 rounded-full backdrop-blur-md flex items-center justify-center transition-all z-10 ${
+          className={`absolute top-3.5 right-3.5 w-10 h-10 rounded-full backdrop-blur-md flex items-center justify-center transition-all duration-200 z-10 ${
             isFavorite
-              ? 'bg-rose-50/95 text-rose-600 shadow-md ring-2 ring-rose-200'
-              : 'bg-white/85 text-stone-600 hover:bg-white hover:text-rose-600 hover:scale-105'
+              ? 'bg-rose-50/95 text-rose-600 shadow-md ring-2 ring-rose-200 scale-105'
+              : 'bg-white/85 text-stone-600 hover:bg-white hover:text-rose-600 hover:scale-110 active:scale-95 shadow-sm'
           }`}
           aria-label={isFavorite ? 'Remove from saved residences' : 'Save residence to shortlist'}
         >
-          <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+          <Heart className={`w-4 h-4 transition-transform duration-200 ${isFavorite ? 'fill-current scale-110' : ''}`} />
         </button>
 
         {/* Hospital Commute Banner at bottom of image */}

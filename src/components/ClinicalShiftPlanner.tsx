@@ -381,6 +381,56 @@ export const ClinicalShiftPlanner: React.FC = () => {
                 </div>
               </div>
 
+              {/* Interactive Commute Route Visualizer (Generative UI) */}
+              <div className="bg-white/5 rounded-2xl p-4 border border-white/10 space-y-3">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-teal-300 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Door-to-Ward Transit Route
+                  </span>
+                  <span className="text-slate-300 text-[11px] font-mono bg-white/10 px-2 py-0.5 rounded">
+                    Peak Verified
+                  </span>
+                </div>
+
+                {/* Stepped Route Progress */}
+                <div className="grid grid-cols-4 gap-1 text-[11px] relative pt-1">
+                  <div className="text-center space-y-1">
+                    <div className="w-6 h-6 rounded-full bg-teal-500/20 text-teal-300 border border-teal-400/40 flex items-center justify-center mx-auto font-mono text-[10px] font-bold">
+                      01
+                    </div>
+                    <span className="text-slate-300 block font-medium leading-tight">Private Lift</span>
+                    <span className="text-[10px] text-teal-400 font-mono">1.5 min</span>
+                  </div>
+
+                  <div className="text-center space-y-1">
+                    <div className="w-6 h-6 rounded-full bg-teal-500/20 text-teal-300 border border-teal-400/40 flex items-center justify-center mx-auto font-mono text-[10px] font-bold">
+                      02
+                    </div>
+                    <span className="text-slate-300 block font-medium leading-tight">Priority Exit</span>
+                    <span className="text-[10px] text-teal-400 font-mono">2 min</span>
+                  </div>
+
+                  <div className="text-center space-y-1">
+                    <div className="w-6 h-6 rounded-full bg-teal-500/20 text-teal-300 border border-teal-400/40 flex items-center justify-center mx-auto font-mono text-[10px] font-bold">
+                      03
+                    </div>
+                    <span className="text-slate-300 block font-medium leading-tight">Main Corridor</span>
+                    <span className="text-[10px] text-teal-400 font-mono">
+                      {parseInt(currentTelemetry.time) > 6 ? `${parseInt(currentTelemetry.time) - 5} min` : '4 min'}
+                    </span>
+                  </div>
+
+                  <div className="text-center space-y-1">
+                    <div className="w-6 h-6 rounded-full bg-[#008374] text-white flex items-center justify-center mx-auto font-mono text-[10px] font-bold shadow-xs">
+                      🏥
+                    </div>
+                    <span className="text-white block font-bold leading-tight">Hospital Gate</span>
+                    <span className="text-[10px] text-emerald-300 font-mono">Arrived</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Optimal Residence Recommendation */}
               <div className="bg-white/10 rounded-2xl p-4 border border-white/15 space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
