@@ -66,8 +66,8 @@ export const Navbar: React.FC = () => {
                 <span className="text-lg font-bold tracking-tight text-[#0A2540] group-hover:text-[#008374] transition-colors leading-tight">
                   MedProperties
                 </span>
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
-                  Built for those who care
+                <span className="text-xs uppercase tracking-wider font-medium text-slate-500">
+                  Built for healthcare professionals
                 </span>
               </div>
             </button>
@@ -79,10 +79,10 @@ export const Navbar: React.FC = () => {
               <button
                 key={item.label}
                 onClick={() => navigateTo(item.view)}
-                className={`text-[14px] font-medium transition-all py-1.5 cursor-pointer relative ${
+                className={`text-sm transition-all py-1.5 cursor-pointer relative ${
                   item.active
-                    ? 'text-[#008374] font-semibold'
-                    : 'text-slate-700 hover:text-[#0A2540]'
+                    ? 'text-[#008374] font-bold'
+                    : 'text-slate-600 hover:text-[#0A2540] font-medium'
                 }`}
               >
                 {item.label}
@@ -98,8 +98,12 @@ export const Navbar: React.FC = () => {
             {/* Talk to a specialist Concierge CTA */}
             <button
               onClick={openConciergeModal}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-[#008374] bg-teal-50/80 hover:bg-teal-100/70 border border-teal-200/60 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-[#008374] bg-teal-50 hover:bg-teal-100 border border-teal-200/80 transition-all cursor-pointer shadow-xs"
             >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#008374] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#008374]"></span>
+              </span>
               <PhoneCall className="w-3.5 h-3.5 text-[#008374]" />
               <span>Talk to a specialist</span>
             </button>
@@ -113,7 +117,7 @@ export const Navbar: React.FC = () => {
             >
               <Heart className="w-5 h-5" />
               {favorites.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 text-[10px] font-bold text-white bg-[#008374] rounded-full flex items-center justify-center animate-in zoom-in">
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs font-bold text-white bg-[#008374] rounded-full flex items-center justify-center shadow-xs">
                   {favorites.length}
                 </span>
               )}
@@ -125,7 +129,7 @@ export const Navbar: React.FC = () => {
                 <button
                   onMouseEnter={() => setUserDropdown(true)}
                   onClick={() => setUserDropdown(!userDropdown)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 bg-white transition-all text-xs font-semibold text-[#0A2540] cursor-pointer"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 bg-white transition-all text-xs font-semibold text-[#0A2540] cursor-pointer shadow-xs"
                   aria-expanded={userDropdown}
                 >
                   <div
@@ -139,14 +143,14 @@ export const Navbar: React.FC = () => {
                       user.email.charAt(0).toUpperCase()
                     )}
                   </div>
-                  <span className="max-w-[100px] truncate">{user.email.split('@')[0]}</span>
+                  <span className="max-w-[110px] truncate">{user.email.split('@')[0]}</span>
                   <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
                 </button>
 
                 {userDropdown && (
                   <div className="absolute right-0 top-full w-56 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 mt-1 animate-in fade-in z-50">
                     <div className="px-4 py-2 border-b border-slate-100">
-                      <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                      <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
                         {user.role === 'superadmin' ? 'Super Administrator' : 'Healthcare Member'}
                       </p>
                       <p className="text-xs font-bold text-[#0A2540] truncate">{user.email}</p>
@@ -194,7 +198,7 @@ export const Navbar: React.FC = () => {
             >
               <Heart className="w-5 h-5" />
               {favorites.length > 0 && (
-                <span className="absolute top-0 right-0 w-4 h-4 text-[9px] font-bold text-white bg-[#008374] rounded-full flex items-center justify-center">
+                <span className="absolute top-0 right-0 min-w-[16px] h-[16px] px-1 text-xs font-bold text-white bg-[#008374] rounded-full flex items-center justify-center">
                   {favorites.length}
                 </span>
               )}

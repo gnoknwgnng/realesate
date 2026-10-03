@@ -65,7 +65,7 @@ export const MortgageCalculatorModal: React.FC<MortgageCalculatorModalProps> = (
           {/* Top highlight card */}
           <div className="p-4 bg-emerald-50/80 border border-emerald-200 rounded-2xl flex items-center justify-between">
             <div>
-              <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">
+              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
                 Estimated Monthly EMI
               </span>
               <span className="text-3xl font-extrabold text-[#008374]">
@@ -74,7 +74,7 @@ export const MortgageCalculatorModal: React.FC<MortgageCalculatorModalProps> = (
               </span>
             </div>
             <div className="text-right">
-              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-white px-2.5 py-1 rounded-full shadow-xs border border-emerald-200">
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-white px-2.5 py-1 rounded-full shadow-xs border border-emerald-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 Zero Processing Fee for Doctors
               </span>
@@ -113,7 +113,7 @@ export const MortgageCalculatorModal: React.FC<MortgageCalculatorModalProps> = (
                 onChange={(e) => setDownPaymentPercent(Number(e.target.value))}
                 className="w-full accent-[#008374] cursor-pointer"
               />
-              <span className="text-[10px] text-slate-400 block mt-1">
+              <span className="text-xs text-slate-400 block mt-1">
                 *Up to 90% funding available for MBBS, MD, MS, DM, and MCh doctors.
               </span>
             </div>
@@ -163,15 +163,15 @@ export const MortgageCalculatorModal: React.FC<MortgageCalculatorModalProps> = (
             <h4 className="font-bold text-slate-800 text-xs">Payment & Loan Breakdown:</h4>
             <div className="grid grid-cols-3 gap-3 text-center">
               <div className="p-3 bg-slate-50 rounded-xl">
-                <span className="text-[10px] text-slate-400 block font-semibold">Net Loan Amount</span>
+                <span className="text-xs text-slate-400 block font-semibold">Net Loan Amount</span>
                 <span className="text-sm font-extrabold text-slate-800">₹{Math.round(loanAmount).toLocaleString('en-IN')}</span>
               </div>
               <div className="p-3 bg-slate-50 rounded-xl">
-                <span className="text-[10px] text-slate-400 block font-semibold">Monthly EMI</span>
+                <span className="text-xs text-slate-400 block font-semibold">Monthly EMI</span>
                 <span className="text-sm font-extrabold text-[#008374]">₹{Math.round(monthlyEMI).toLocaleString('en-IN')}</span>
               </div>
               <div className="p-3 bg-slate-50 rounded-xl">
-                <span className="text-[10px] text-slate-400 block font-semibold">Total Payable</span>
+                <span className="text-xs text-slate-400 block font-semibold">Total Payable</span>
                 <span className="text-sm font-extrabold text-slate-800">₹{Math.round(monthlyEMI * numberOfPayments).toLocaleString('en-IN')}</span>
               </div>
             </div>
@@ -183,7 +183,7 @@ export const MortgageCalculatorModal: React.FC<MortgageCalculatorModalProps> = (
               <Stethoscope className="w-4 h-4 text-[#008374]" />
               Doctor Home Loan Advantages (SBI / HDFC / ICICI)
             </h4>
-            <ul className="space-y-1 text-slate-600 text-[11px]">
+            <ul className="space-y-1 text-slate-600 text-xs">
               <li>✓ Concessional interest rate for medical practitioners and post-graduate residents</li>
               <li>✓ Minimal documentation with fast-track digital approval in 48 hours</li>
               <li>✓ Zero prepayment penalty on floating rate loans</li>

@@ -89,7 +89,7 @@ export const FinancingPage: React.FC = () => {
                 <Calculator className="w-4 h-4 text-[#008374]" />
                 Loan Structure Parameters
               </h2>
-              <span className="text-[11px] font-mono text-slate-400">
+              <span className="text-xs font-mono text-slate-500 font-medium">
                 Live Re-calculation
               </span>
             </div>
@@ -113,7 +113,7 @@ export const FinancingPage: React.FC = () => {
                 onChange={(e) => setPropertyPrice(Number(e.target.value))}
                 className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#008374]"
               />
-              <div className="flex justify-between text-[11px] text-slate-400 font-mono">
+              <div className="flex justify-between text-xs text-slate-500 font-mono">
                 <span>₹30 Lakhs</span>
                 <span>₹4 Crore</span>
                 <span>₹8 Crore</span>
@@ -139,7 +139,7 @@ export const FinancingPage: React.FC = () => {
                 onChange={(e) => setDownPaymentPercent(Number(e.target.value))}
                 className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#008374]"
               />
-              <div className="flex justify-between text-[11px] text-slate-400 font-mono">
+              <div className="flex justify-between text-xs text-slate-500 font-mono">
                 <span>10% (Doctor Special)</span>
                 <span>20% (Standard)</span>
                 <span>50%</span>
@@ -167,7 +167,7 @@ export const FinancingPage: React.FC = () => {
                   onChange={(e) => setInterestRate(Number(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#008374]"
                 />
-                <p className="text-[10px] text-slate-400">
+                <p className="text-xs text-slate-500">
                   Indicative benchmark rate across SBI, HDFC & ICICI healthcare programs.
                 </p>
               </div>
@@ -191,7 +191,7 @@ export const FinancingPage: React.FC = () => {
                   onChange={(e) => setTenureYears(Number(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#008374]"
                 />
-                <p className="text-[10px] text-slate-400">
+                <p className="text-xs text-slate-500">
                   Extended repayment horizons up to age 70 for medical specialists.
                 </p>
               </div>
@@ -210,7 +210,7 @@ export const FinancingPage: React.FC = () => {
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-[#0A2540] text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#008374]">
+                <span className="text-xs uppercase font-bold tracking-widest text-[#008374]">
                   Estimated Monthly Outlay
                 </span>
                 <div className="flex items-baseline gap-2 mt-1">
@@ -239,7 +239,7 @@ export const FinancingPage: React.FC = () => {
                     title={`Interest: ${interestRatio.toFixed(1)}%`}
                   />
                 </div>
-                <div className="flex justify-between text-[11px] text-slate-300 pt-1">
+                <div className="flex justify-between text-xs text-slate-300 pt-1">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#008374]" />
                     <span>Principal: {formatINR(loanAmount)}</span>
@@ -260,7 +260,7 @@ export const FinancingPage: React.FC = () => {
                 <span>Request Financing Advisory</span>
               </button>
 
-              <p className="text-[11px] text-slate-400 text-center">
+              <p className="text-xs text-slate-400 text-center">
                 Free specialist consultation. Direct bank liaison without broker commissions.
               </p>
             </div>

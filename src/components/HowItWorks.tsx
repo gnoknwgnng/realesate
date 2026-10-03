@@ -91,9 +91,9 @@ export const HowItWorks: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+                <div className="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
                   <span>Step {idx + 1} of 4</span>
-                  <span className="text-[#008374] font-medium">Assisted</span>
+                  <span className="text-[#008374] font-semibold">Assisted</span>
                 </div>
               </div>
             );

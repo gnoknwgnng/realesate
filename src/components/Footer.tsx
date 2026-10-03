@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
           
           {/* Explore Homes */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
+            <h4 className="font-bold text-white uppercase tracking-wider text-xs">
               Explore Homes
             </h4>
             <ul className="space-y-2 text-slate-400">
@@ -113,7 +113,7 @@ export const Footer: React.FC = () => {
 
           {/* For Landlords */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
+            <h4 className="font-bold text-white uppercase tracking-wider text-xs">
               For Landlords
             </h4>
             <ul className="space-y-2 text-slate-400">
@@ -154,7 +154,7 @@ export const Footer: React.FC = () => {
 
           {/* Relocation & How It Works */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
+            <h4 className="font-bold text-white uppercase tracking-wider text-xs">
               Relocation
             </h4>
             <ul className="space-y-2 text-slate-400">
@@ -195,7 +195,7 @@ export const Footer: React.FC = () => {
 
           {/* Financing */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
+            <h4 className="font-bold text-white uppercase tracking-wider text-xs">
               Financing & Loans
             </h4>
             <ul className="space-y-2 text-slate-400">
@@ -236,7 +236,7 @@ export const Footer: React.FC = () => {
 
           {/* Trust & Legal */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
+            <h4 className="font-bold text-white uppercase tracking-wider text-xs">
               Trust & Legal
             </h4>
             <ul className="space-y-2 text-slate-400">

@@ -302,7 +302,7 @@ export const AuthModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setRole('doctor')}
-                  className={`py-2 px-2 rounded-xl font-bold flex flex-col items-center justify-center gap-1 border transition-all text-[11px] ${
+                  className={`py-2 px-2 rounded-xl font-bold flex flex-col items-center justify-center gap-1 border transition-all text-xs ${
                     role === 'doctor'
                       ? 'border-[#008374] bg-emerald-50 text-[#008374] shadow-xs'
                       : 'border-slate-200 text-slate-600 hover:bg-slate-50'
@@ -314,7 +314,7 @@ export const AuthModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setRole('landlord')}
-                  className={`py-2 px-2 rounded-xl font-bold flex flex-col items-center justify-center gap-1 border transition-all text-[11px] ${
+                  className={`py-2 px-2 rounded-xl font-bold flex flex-col items-center justify-center gap-1 border transition-all text-xs ${
                     role === 'landlord'
                       ? 'border-[#008374] bg-emerald-50 text-[#008374] shadow-xs'
                       : 'border-slate-200 text-slate-600 hover:bg-slate-50'
@@ -326,7 +326,7 @@ export const AuthModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setRole('superadmin')}
-                  className={`py-2 px-2 rounded-xl font-bold flex flex-col items-center justify-center gap-1 border transition-all text-[11px] ${
+                  className={`py-2 px-2 rounded-xl font-bold flex flex-col items-center justify-center gap-1 border transition-all text-xs ${
                     role === 'superadmin'
                       ? 'border-purple-600 bg-purple-50 text-purple-700 shadow-xs'
                       : 'border-slate-200 text-slate-600 hover:bg-slate-50'
@@ -360,7 +360,7 @@ export const AuthModal: React.FC = () => {
             <div className="flex items-center justify-between mb-1">
               <label className="block font-bold text-slate-700">Password</label>
               {authMode === 'signup' && (
-                <span className="text-[10px] text-slate-400">Min. 6 characters</span>
+                <span className="text-xs text-slate-400">Min. 6 characters</span>
               )}
             </div>
             <div className="relative">

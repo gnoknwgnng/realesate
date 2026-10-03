@@ -226,7 +226,7 @@ export const PropertyDetailPage: React.FC = () => {
             <div className="bg-[#0A2540] text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
                 <div>
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-[#008374]">
+                  <span className="text-xs uppercase tracking-widest font-bold text-[#008374]">
                     Specialized Healthcare Audit
                   </span>
                   <h3 className="text-xl font-bold text-white tracking-tight mt-0.5">
@@ -249,7 +249,7 @@ export const PropertyDetailPage: React.FC = () => {
                   <p className="text-base font-bold text-white">
                     {selectedProperty.commute_estimate || '12 min drive to nearby hospital hub'}
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-xs text-slate-400">
                     Tested during morning clinical handover peak traffic.
                   </p>
                 </div>
@@ -263,7 +263,7 @@ export const PropertyDetailPage: React.FC = () => {
                   <p className="text-base font-bold text-white">
                     Full Generator Auto-Switch (&lt;10s)
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-xs text-slate-400">
                     Supports high-draw home medical gear, workstation & air conditioning.
                   </p>
                 </div>
@@ -277,7 +277,7 @@ export const PropertyDetailPage: React.FC = () => {
                   <p className="text-base font-bold text-white">
                     &lt; 42 dB Ambient Bedroom Noise
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-xs text-slate-400">
                     Double-glazed apertures for uninterrupted daytime post-call sleep.
                   </p>
                 </div>
@@ -291,7 +291,7 @@ export const PropertyDetailPage: React.FC = () => {
                   <p className="text-base font-bold text-white">
                     Evening (7–9 PM) & Weekend Slots
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-xs text-slate-400">
                     Accompanied by MedProperties concierge without landlord delays.
                   </p>
                 </div>
@@ -306,14 +306,14 @@ export const PropertyDetailPage: React.FC = () => {
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[11px] uppercase font-bold text-slate-400 block">
+                  <span className="text-xs uppercase font-bold text-slate-500 block mb-1">
                     {selectedProperty.category === 'buy' ? 'Guide Price' : 'Monthly Rent'}
                   </span>
                   <span className="text-xl font-extrabold text-[#0A2540]">{formattedPrice}</span>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[11px] uppercase font-bold text-slate-400 block">
+                  <span className="text-xs uppercase font-bold text-slate-500 block mb-1">
                     Security Deposit
                   </span>
                   <span className="text-sm font-bold text-slate-800">
@@ -322,7 +322,7 @@ export const PropertyDetailPage: React.FC = () => {
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[11px] uppercase font-bold text-slate-400 block">
+                  <span className="text-xs uppercase font-bold text-slate-500 block mb-1">
                     Maintenance
                   </span>
                   <span className="text-sm font-bold text-slate-800">
@@ -331,7 +331,7 @@ export const PropertyDetailPage: React.FC = () => {
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[11px] uppercase font-bold text-slate-400 block">
+                  <span className="text-xs uppercase font-bold text-slate-500 block mb-1">
                     Furnishing
                   </span>
                   <span className="text-sm font-bold text-slate-800">
@@ -404,7 +404,7 @@ export const PropertyDetailPage: React.FC = () => {
             <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-lg space-y-6">
               
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#008374]">
+                <span className="text-xs uppercase font-bold tracking-widest text-[#008374]">
                   Private Viewing Request
                 </span>
                 <h3 className="text-xl font-bold text-[#0A2540] mt-0.5">
@@ -495,15 +495,15 @@ export const PropertyDetailPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3 rounded-2xl bg-[#008374] hover:bg-[#007063] text-white text-xs font-bold tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full py-3.5 rounded-2xl bg-[#008374] hover:bg-[#007063] text-white text-xs font-bold tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     <PhoneCall className="w-3.5 h-3.5" />
                     <span>{isSubmitting ? 'Submitting...' : 'Request Accompanied Tour'}</span>
                   </button>
 
-                  <div className="pt-2 text-[11px] text-slate-400 space-y-1">
+                  <div className="pt-2 text-xs text-slate-500 space-y-1">
                     <p className="flex items-center gap-1.5">
-                      <Lock className="w-3 h-3 text-[#008374]" />
+                      <Lock className="w-3.5 h-3.5 text-[#008374] shrink-0" />
                       <span>Data shared strictly with your assigned MedProperties specialist.</span>
                     </p>
                     <p>No spam calls or unverified broker syndicates.</p>

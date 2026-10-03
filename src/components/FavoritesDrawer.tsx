@@ -64,7 +64,7 @@ export const FavoritesDrawer: React.FC = () => {
                   <div className="flex items-center justify-between mt-2">
                     <span className="text-sm font-extrabold text-[#008374]">
                       ₹{prop.price.toLocaleString('en-IN')}
-                      <span className="text-[11px] text-slate-400 font-normal">/{prop.period || 'mo'}</span>
+                      <span className="text-xs text-slate-400 font-normal">/{prop.period || 'mo'}</span>
                     </span>
                     <button
                       type="button"

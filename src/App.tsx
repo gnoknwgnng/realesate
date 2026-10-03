@@ -18,6 +18,7 @@ import { AddPropertyModal } from './components/AddPropertyModal';
 import { AuthModal } from './components/AuthModal';
 import { FavoritesDrawer } from './components/FavoritesDrawer';
 import { MortgageCalculatorModal } from './components/MortgageCalculatorModal';
+import { ClinicalShiftPlanner } from './components/ClinicalShiftPlanner';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
 
@@ -107,7 +108,10 @@ export const AppContent: React.FC = () => {
               {/* 4. 4-Step Guided Relocation Sequence */}
               <HowItWorks />
 
-              {/* 5. Complete Verified Inventory Grid */}
+              {/* 5. Interactive Clinical Shift Commute & Residence Planner */}
+              <ClinicalShiftPlanner />
+
+              {/* 6. Complete Verified Inventory Grid */}
               <PropertyGrid />
             </main>
             <Footer />

@@ -68,7 +68,7 @@ export const WhyMedProperties: React.FC = () => {
                     <div className="w-11 h-11 rounded-xl bg-teal-50 border border-teal-200/60 flex items-center justify-center text-[#008374]">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-100 px-2 py-0.5 rounded">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-md">
                       {item.tag}
                     </span>
                   </div>
@@ -82,7 +82,7 @@ export const WhyMedProperties: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-slate-200/60 text-[11px] font-mono text-slate-400">
+                <div className="pt-4 mt-4 border-t border-slate-200/60 text-xs font-mono text-slate-500 font-medium">
                   Standard 0{idx + 1}
                 </div>
               </div>

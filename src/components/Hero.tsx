@@ -103,22 +103,22 @@ export const Hero: React.FC = () => {
                   </button>
                 </div>
 
-                <span className="text-[11px] font-medium text-slate-400 hidden sm:inline">
+                <span className="text-xs font-medium text-slate-400 hidden sm:inline">
                   Verified commute calculations
                 </span>
               </div>
 
               {/* Form Grid */}
-              <form onSubmit={handleSearch} className="space-y-3.5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <form onSubmit={handleSearch} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   
                   {/* Hospital or Locality Input with Typeahead */}
                   <div className="relative">
-                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Hospital or Landmark
                     </label>
                     <div className="relative flex items-center">
-                      <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
                       <input
                         type="text"
                         value={hospitalQuery}
@@ -128,14 +128,14 @@ export const Hero: React.FC = () => {
                         }}
                         onFocus={() => setShowHospitalDropdown(true)}
                         placeholder="e.g. Manipal, AIIMS, Apollo"
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374]"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] transition-all bg-slate-50/50 hover:bg-white focus:bg-white"
                       />
                     </div>
 
                     {/* Hospital Hubs Dropdown */}
                     {showHospitalDropdown && (
                       <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 max-h-56 overflow-y-auto z-50">
-                        <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                        <div className="px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-slate-400">
                           Major Hospital Hubs
                         </div>
                         {filteredHospitals.map((h, i) => (
@@ -143,15 +143,15 @@ export const Hero: React.FC = () => {
                             key={i}
                             type="button"
                             onClick={() => selectHospital(h.name, h.city)}
-                            className="w-full text-left px-3 py-2 hover:bg-teal-50 flex items-start justify-between text-xs cursor-pointer group"
+                            className="w-full text-left px-3.5 py-2 hover:bg-teal-50 flex items-start justify-between text-xs cursor-pointer group transition-colors"
                           >
                             <div>
                               <p className="font-semibold text-slate-800 group-hover:text-[#008374]">
                                 {h.name}
                               </p>
-                              <p className="text-[11px] text-slate-400">{h.locality}</p>
+                              <p className="text-xs text-slate-400">{h.locality}</p>
                             </div>
-                            <span className="text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                            <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
                               {h.city}
                             </span>
                           </button>
@@ -162,15 +162,15 @@ export const Hero: React.FC = () => {
 
                   {/* City Selector */}
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       City
                     </label>
                     <div className="relative flex items-center">
-                      <MapPin className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
                       <select
                         value={selectedCity}
                         onChange={(e) => setSelectedCity(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-white cursor-pointer"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-slate-50/50 hover:bg-white focus:bg-white cursor-pointer transition-all"
                       >
                         <option value="all">All Cities</option>
                         <option value="Bengaluru">Bengaluru</option>
@@ -184,17 +184,17 @@ export const Hero: React.FC = () => {
                 </div>
 
                 {/* Sub-row: Commute Time & BHK */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Max 8 AM Commute
                     </label>
                     <div className="relative flex items-center">
-                      <Clock className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <Clock className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
                       <select
                         value={commuteTime}
                         onChange={(e) => setCommuteTime(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-white cursor-pointer"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-slate-50/50 hover:bg-white focus:bg-white cursor-pointer transition-all"
                       >
                         <option value="all">Any Commute Distance</option>
                         <option value="15">Within 15 mins</option>
@@ -205,15 +205,15 @@ export const Hero: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Bedrooms (BHK)
                     </label>
                     <div className="relative flex items-center">
-                      <Bed className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                      <Bed className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
                       <select
                         value={beds}
                         onChange={(e) => setBeds(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-white cursor-pointer"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-hidden focus:border-[#008374] focus:ring-1 focus:ring-[#008374] bg-slate-50/50 hover:bg-white focus:bg-white cursor-pointer transition-all"
                       >
                         <option value="all">Any Configuration</option>
                         <option value="2">2 BHK</option>
@@ -227,7 +227,7 @@ export const Hero: React.FC = () => {
                 {/* Submit Action */}
                 <button
                   type="submit"
-                  className="w-full py-3 px-5 rounded-2xl bg-[#008374] hover:bg-[#007063] text-white text-xs font-bold tracking-wide transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer mt-2"
+                  className="w-full py-3.5 px-5 rounded-2xl bg-[#008374] hover:bg-[#007063] text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer mt-2"
                 >
                   <span>Explore Verified Homes</span>
                   <ArrowRight className="w-4 h-4" />
@@ -235,7 +235,7 @@ export const Hero: React.FC = () => {
               </form>
 
               {/* Quick Hospital Tags */}
-              <div className="pt-3 mt-3 border-t border-slate-100 flex items-center gap-2 overflow-x-auto text-[11px] text-slate-500">
+              <div className="pt-3 mt-3.5 border-t border-slate-100 flex items-center gap-2 overflow-x-auto text-xs text-slate-500">
                 <span className="font-semibold text-slate-600 shrink-0">Popular hubs:</span>
                 {[
                   { name: 'Manipal HAL', city: 'Bengaluru' },
@@ -247,7 +247,7 @@ export const Hero: React.FC = () => {
                     key={idx}
                     type="button"
                     onClick={() => selectHospital(item.name, item.city)}
-                    className="shrink-0 px-2 py-0.5 rounded-md bg-slate-100 hover:bg-teal-50 hover:text-[#008374] transition-colors cursor-pointer"
+                    className="shrink-0 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-[#008374] text-slate-700 transition-colors cursor-pointer text-xs font-medium"
                   >
                     {item.name}
                   </button>
@@ -269,30 +269,40 @@ export const Hero: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/90 via-[#0A2540]/30 to-transparent" />
 
               {/* In-Frame Featured Residence Fact Card */}
-              <div className="absolute bottom-5 inset-x-5 bg-white/95 backdrop-blur-md rounded-2xl p-4 text-slate-900 border border-white/20 shadow-lg">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#008374]">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>Verified Audit Complete</span>
+              <div className="absolute bottom-5 inset-x-5 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 text-slate-900 border border-white/20 shadow-xl">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#008374]">
+                    <CheckCircle2 className="w-4 h-4 text-[#008374]" />
+                    <span>Physical Field Audit Complete</span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                  <span className="text-xs font-mono text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-md font-semibold">
                     12 Sep 2026
                   </span>
                 </div>
 
-                <h4 className="text-sm font-bold text-[#0A2540] truncate">
+                <h4 className="text-base font-bold text-[#0A2540] truncate">
                   The Belmond Tower Residence
                 </h4>
                 <p className="text-xs text-slate-500 truncate">
                   Old Airport Road, Bengaluru • 3 BHK (2,100 sq ft)
                 </p>
 
-                <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-1 font-semibold text-slate-700">
+                {/* Audit highlights */}
+                <div className="mt-2.5 flex items-center gap-2">
+                  <span className="text-xs bg-teal-50 text-[#008374] font-medium px-2 py-0.5 rounded border border-teal-100">
+                    100% DG Auto-Switch
+                  </span>
+                  <span className="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded">
+                    &lt; 40 dB Acoustic Suite
+                  </span>
+                </div>
+
+                <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-1.5 font-semibold text-slate-700">
                     <Clock className="w-3.5 h-3.5 text-[#008374]" />
                     <span>8 min drive to Manipal Hospital</span>
                   </div>
-                  <span className="font-bold text-[#0A2540]">₹85,000/mo</span>
+                  <span className="text-sm font-extrabold text-[#0A2540]">₹85,000/mo</span>
                 </div>
               </div>
             </div>
